@@ -1,0 +1,1415 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="author" content="" />
+		<meta name="keywords" content="ajax uploader cgi php perl" />
+		<meta name="description" content="This free script lets you accept file uploads through the web while displaying a progress bar. Very easy to install and modify. Excellent support provided in the project forums." />
+		<title>UBER-UPLOADER (UU) VER 6.8</title>
+		<style type="text/css">
+			.right {
+				text-align: right;
+			}
+			.filename, .directory, .function, .setting, .command {
+				font-family: monospace;
+				font-size: 10pt;
+				font-weight: bold;
+				color: #777777;
+			}
+			.directory {
+				color: #00A000;
+			}
+			.function {
+				color: #A00000;
+			}
+			.setting {
+				color: #0000A0;
+			}
+			.command {
+				color: #A000A0;
+			}
+			.top {
+				font-size: 7pt;
+				color: #3333FF;
+				text-align: right;
+				margin-bottom: 10px;
+			}
+			body {
+				font-family: arial, helvetica, sans-serif;
+				font-size: 11pt;
+				font-weight: normal;
+				text-align: left;
+				background-color: #FFFFFF;
+				color: #000000;
+				margin: 5px;
+			}
+			h1 {
+				font-size: 15pt;
+				font-weight: bold;
+				border-bottom: 3px solid #000080;
+			}
+			h2 {
+				font-size: 13pt;
+				font-weight: bold;
+				border-bottom: 1px solid #000080;
+				margin-bottom: 1px;
+			}
+			h3 {
+				font-size: 11pt;
+				font-weight: bold;
+				margin-bottom: 2px;
+			}
+			hr {
+				border: 1px;
+				height: 1px;
+				color: #E00000;
+			}
+			pre {
+				font-family: monospace;
+				font-size: 9pt;
+				color: #000000;
+				background-color: #EEEEEE;
+				border: 1px solid #CCCCCC;
+				margin: 5px 20px;
+			}
+			img {
+				border: 0px;
+			}
+			ul, ol {
+				margin-top: 15px;
+			}
+			li {
+				margin-top: 5px;
+			}
+			ol.bigbottommargin li {
+				margin-bottom: 30px;
+			}
+			table {
+				font-size: 8pt;
+				border: 1px solid #CCCCCC;
+				background-color: #F8F8F8;
+			}
+			th {
+				font-weight: bold;
+				color: #FFFFE0;
+				background-color: #E00000;
+			}
+			td, th {
+				padding: 1px 5px 1px 5px;
+			}
+			td .filename, td .directory, td .function, td .setting,
+			th .filename, th .directory, th .function, th .setting {
+				font-size: 8pt;
+			}
+		</style>
+	</head>
+	<body>
+		<h1 id="top">UBER-UPLOADER (UU) VER 6.8</h1>
+		<div>
+			12:50 PM August 23, 2009
+		</div>
+		<div class="right">
+			<table>
+				<tr>
+					<th>Home Page:</th>
+					<td><a href="uber-uploader.sourceforge.net">uber-uploader.sourceforge.net</a></td>
+				</tr>
+				<tr>
+					<th>Project Page:</th>
+					<td><a href="sourceforge.net/projects/uber-uploader/">sourceforge.net/projects/uber-uploader</a></td>
+				</tr>
+				<tr>
+					<th>Demo:</th>
+					<td><a href="www.webdice.org/uber_uploader/">www.webdice.org/uber_uploader/</a></td>
+				</tr>
+			</table>
+			<br />
+			<a href="http://validator.w3.org/check?uri=referer"><img src="http://www.w3.org/Icons/valid-xhtml10-blue"  alt="Valid XHTML 1.0 Strict" height="31" width="88" /></a>
+			<a href="http://jigsaw.w3.org/css-validator/"><img style="border:0;width:88px;height:31px" src="http://jigsaw.w3.org/css-validator/images/vcss-blue" alt="Valid CSS" /></a>
+		</div>
+		<h2>CONTENTS</h2>
+		<div class="top"><a href="#top">Top</a></div>
+		<div>
+			<h3>INSTALLATION</h3>
+			<ul>
+				<li><a href="#Requirements">Requirements</a></li>
+				<li><a href="#FlowOfExecution">Flow of Execution</a></li>
+				<li><a href="#FileListing">File Listing</a></li>
+				<li><a href="#Initialization">Initialization</a></li>
+				<li><a href="#Configuration">Configuration</a></li>
+				<li><a href="#Installation">Installation</a></li>
+				<li><a href="#InstallingMultipleConfigFiles">Installing Multiple Config Files</a></li>
+			</ul>
+			<h3>HELP</h3>
+			<ul>
+				<li><a href="#AccessingFileInformation">Accessing File Information</a></li>
+				<li><a href="#PassingValuesThroughUU">Passing Values Through UU</a></li>
+				<li><a href="#ProgressBarStyles">Progess Bar Styles</a></li>
+				<li><a href="#Security">Security</a></li>
+				<li><a href="#DebuggingTools">Debugging Tools</a></li>
+				<li><a href="#FailedToFindFlengthFile">Failed to Find Flength File</a></li>
+				<li><a href="#ServerClusters">Server Clusters</a></li>
+				<li><a href="#HowToViewDisabled">How to View an Active Upload (CGI_UPLOAD_HOOK Disabled)</a></li>
+				<li><a href="#HowToViewEnabled">How to View an Active Upload (CGI_UPLOAD_HOOK Enabled)</a></li>
+				<li><a href="#MultiSimultaneousUploads">Multi Simultaneous Uploads</a></li>
+				<li><a href="#ForeignLanguageSupport">Foreign Language Support</a></li>
+				<li><a href="#HowToViewYourPHPSettings">How To View Your PHP Settings</a></li>
+				<li><a href="#HowToViewYourPerlSettings">How To View Your Perl Settings</a></li>
+				<li><a href="#ApacheSettingsThatMayAffectUploads">Apache Settings That May Affect Uploads</a></li>
+				<li><a href="#PHPSettingsThatMayAffectUploads">PHP Settings That May Affect Uploads</a></li>
+			</ul>
+		</div>
+		<h2 id="Requirements">REQUIREMENTS</h2>
+		<div class="top"><a href="#top">Top</a></div>
+		<strong>NOTE:</strong> UU is not compatible with mod_perl
+		<div>
+			<ol>
+				<li>Operating System: All BSD Platforms (FreeBSD/NetBSD/OpenBSD/Apple Mac OS X), All POSIX (Linux/BSD/UNIX-like OSes)</li>
+				<li>Apache web server</li>
+				<li>Perl with CGI, FILE::COPY, FILE::PATH, IO::File</li>
+				<li>PHP</li>
+			</ol>
+		</div>
+		<h2 id="FlowOfExecution">FLOW OF EXECUTION</h2>
+		<div class="top"><a href="#top">Top</a></div>
+<pre>
+-----------------
+|               |                          |---&gt;(2) UPLOAD FILE(S)----&gt;(create upload dir)--&gt;(upload files)----&gt;(5) REDIRECT
+| SUBMIT UPLOAD |----&gt;(1) LINK UPLOAD -----|                                          |
+|               |                          |---&gt;(3) SET PROGRESS BAR ---------|       |
+|               |                                                             |       |
+| progress bar  |&lt;-----(return upload info and start progress bar)&lt;-----------|       |
+|               |                                                                     |
+| |||||||       |&lt;---------------------&gt;(4) GET UPLOAD STATUS &lt;-----------------------&gt;
+|               |
+-----------------
+</pre>
+		<h2 id="FileListing">FILE LISTING</h2>
+		<div class="top"><a href="#top">Top</a></div>
+		<table border="0px">
+			<thead>
+				<tr>
+					<th>FILE</th>
+					<th>UPLOAD</th>
+					<th>DESCRIPTION</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>cgi-bin/ubr_upload.pl</td>
+					<td>REQUIRED</td>
+					<td>Uploads the files to the server and redirects</td>
+				</tr>
+				<tr>
+					<td>html/ubr_lib.php</td>
+					<td>REQUIRED</td>
+					<td>Library of functions used by UU</td>
+				</tr>
+				<tr>
+					<td>html/ubr_ini.php</td>
+					<td>REQUIRED</td>
+					<td>Initializes UU</td>
+				</tr>
+				<tr>
+					<td>html/ubr_finished_lib.php</td>
+					<td>REQUIRED</td>
+					<td>Library of functions used by <span class="filename">ubr_finished.php</span></td>
+				</tr>
+				<tr>
+					<td>html/ubr_default_config.php</td>
+					<td>REQUIRED</td>
+					<td>Default configuration file</td>
+				</tr>
+				<tr>
+					<td>html/ubr_file_upload.php</td>
+					<td>REQUIRED</td>
+					<td>File upload page with progress bar</td>
+				</tr>
+				<tr>
+					<td>html/jquery-1.3.2.min.js</td>
+					<td>REQUIRED</td>
+					<td>JavaScript library file required by Uber-Uploader</td>
+				</tr>
+				<tr>
+					<td>html/jquery.blockUI.js</td>
+					<td>OPTIONAL</td>
+					<td>JQuery plugin that enables page blocking</td>
+				</tr>
+				<tr>
+					<td>html/ubr_file_upload.js</td>
+					<td>REQUIRED</td>
+					<td>JavaScript file required by <span class="filename">ubr_file_upload.php</span></td>
+				</tr>
+				<tr>
+					<td>html/ubr_link_upload.php</td>
+					<td>REQUIRED</td>
+					<td>Links PHP to CGI</td>
+				</tr>
+				<tr>
+					<td>html/ubr_set_progress.php</td>
+					<td>REQUIRED</td>
+					<td>Initializes the upload progress bar</td>
+				</tr>
+				<tr>
+					<td>html/ubr_get_progress.php</td>
+					<td>REQUIRED</td>
+					<td>Updates progress bar with upload information</td>
+				</tr>
+				<tr>
+					<td>html/ubr_finished.php</td>
+					<td>REQUIRED</td>
+					<td>Displays the upload results</td>
+				</tr>
+				<tr>
+					<td>html/ubr.css</td>
+					<td>REQUIRED</td>
+					<td>Style sheet required by Uber-Uploader</td>
+				</tr>
+				<tr>
+					<td>html/images/progress_bar_blue.png</td>
+					<td>OPTIONAL</td>
+					<td>Background image for progress bar</td>
+				</tr>
+				<tr>
+					<td>html/images/progress_bar_white.png</td>
+					<td>OPTIONAL</td>
+					<td>Background image for progress bar</td>
+				</tr>
+				<tr>
+					<td>html/images/toggle.png</td>
+					<td>OPTIONAL</td>
+					<td>Background image for upload stats toggle</td>
+				</tr>
+				<tr>
+					<td>html/images/toggle_collapse.png</td>
+					<td>OPTIONAL</td>
+					<td>Background image for upload stats toggle</td>
+				</tr>
+				<tr>
+					<td>html/images/cross.png</td>
+					<td>OPTIONAL</td>
+					<td>Background image for file delete</td>
+				</tr>
+				<tr>
+					<td>html/.htaccess</td>
+					<td>OPTIONAL</td>
+					<td>Possible flength file fix</td>
+				</tr>
+				<tr>
+					<td>INSTALL_AND_FAQ.HTML</td>
+					<td>NO</td>
+					<td>This file</td>
+				</tr>
+				<tr>
+					<td>CHANGE_LOG.TXT</td>
+					<td>NO</td>
+					<td>The change log</td>
+				</tr>
+				<tr>
+					<td>CREDITS.TXT</td>
+					<td>NO</td>
+					<td>Credit file</td>
+				</tr>
+			</tbody>
+		</table>
+		<h2 id="Initialization">INITIALIZATION</h2>
+		<div class="top"><a href="#top">Top</a></div>
+		<table>
+			<thead>
+				<tr>
+					<th>FILE</th>
+					<th>INI SETTING</th>
+					<th>DESCRIPTION</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<td colspan="3">
+						<hr />
+						<sup>1</sup>ATTENTION - These values must be duplicated in BOTH the <span class="filename">ubr_upload.pl</span> and <span class="filename">ubr_ini.php</span> files.<br />
+						<sup>2</sup>CGI.pm version must be greater than 3.15. <span class="setting">CGI_UPLOAD_HOOK</span> is simply a different method to gather upload information. By using this method it is possible to know what file is currently being uploaded.<br />
+						<sup>3</sup>CAREFUL - Decreasing this value will result in a smoother and accurate progress bar, however it will increase the load on the server.
+					</td>
+				</tr>
+			</tfoot>
+			<tbody>
+				<tr>
+					<td>ubr_upload.pl</td>
+					<td><b>TEMP_DIR</b><sup>1</sup></td>
+					<td>Where UU stores its temp files while uploading</td>
+				</tr>
+				<tr>
+					<td>ubr_upload.pl</td>
+					<td><b>DATA_DELIMITER</b><sup>1</sup></td>
+					<td>Character set UU uses to seperate values in files</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td><b>TEMP_DIR</b><sup>1</sup></td>
+					<td>Where UU stores its temp files while uploading</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td><b>DATA_DELIMITER</b><sup>1</sup></td>
+					<td>Character set UU uses to seperate values in files</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>path_to_upload_script</td>
+					<td>Path to the <span class="filename">ubr_upload.pl</span> script</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>path_to_link_script</td>
+					<td>Path to the <span class="filename">ubr_link_upload.php</span> script</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>path_to_set_progress_script</td>
+					<td>Path to the <span class="filename">ubr_set_progress.php</span> script</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>path_to_get_progress_script</td>
+					<td>Path to the <span class="filename">ubr_get_progress.php</span> script</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>path_to_js_script</td>
+					<td>Path to the <span class="filename">ubr_file_upload.js</span> script</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>path_to_jquery</td>
+					<td>Path to the <span class="filename">jquery-1.3.2.min.js</span> script</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>path_to_block_ui</td>
+					<td>Path to the <span class="filename">jquery.blockUI.js</span> script</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>path_to_css_file</td>
+					<td>Path to the <span class="filename">ubr.css</span> file</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>default_config</td>
+					<td>Name of the default config file</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>redirect_after_upload</td>
+					<td>Enable/Disable redirect after upload is finished</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>embedded_upload_results</td>
+					<td>Enable/Disable embedded upload results</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>block_ui_enabled</td>
+					<td>Enable/Disable page blocking</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>multi_configs_enabled</td>
+					<td>Enable/Disable multi config file support</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>cgi_upload_hook<sup>2</sup></td>
+					<td>Enable/Disable CGI hook file</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>get_progress_speed<sup>3</sup></td>
+					<td>How frequently the server is polled for upload status (10000=10 secs, 5000=5 secs, 1000=1 sec, 500=0.5 sec, 250=0.25 sec)</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>delete_link_file</td>
+					<td>Enable/Disable delete link file after it has been read by the uploader</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>delete_redirect_file</td>
+					<td>Enable/Disable delete redirect file after it has been read by the upload finished page</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>purge_link_files</td>
+					<td>Enable/Disable purge old link files when link script is loaded</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>purge_link_limit</td>
+					<td>Max age of old link files in seconds</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>purge_redirect_files</td>
+					<td>Enable/Disable delete old redirect files when link script is loaded</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>purge_redirect_limit</td>
+					<td>Max age of old redirect files in seconds</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>purge_temp_dirs</td>
+					<td>Enable/Disable purge old temp upload directories</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>purge_temp_dirs_limit</td>
+					<td>Max age of old temp upload directories in seconds</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>flength_timeout_limit</td>
+					<td>Number of times/second to find the flength file</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>hook_timeout_limit</td>
+					<td>Number of times/second to find the flength file</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>debug_ajax</td>
+					<td>Show/Hide ajax debug window and Enable/Disable <span class="function">showDebugMessage</span> function calls</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>debug_php</td>
+					<td>Enable/Disable display PHP info when the file upload page is loaded</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>debug_config</td>
+					<td>Enable/Disable display Config info when the file upload page is loaded</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>debug_upload</td>
+					<td>Enable/Disable display Link and Perl info when uploader is loaded</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>debug_finished</td>
+					<td>Enable/Disable display Redirect info when upload finished page is loaded</td>
+				</tr>
+				<tr>
+					<td>ubr_ini.php</td>
+					<td>php_error_reporting</td>
+					<td>Enable/Disable PHP <span class="function">error_reporting(E_ALL);</span></td>
+				</tr>
+			</tbody>
+		</table>
+		<h2 id="Configuration">CONFIGURATION</h2>
+		<div class="top"><a href="#top">Top</a></div>
+		<table width="100%">
+			<thead>
+				<tr>
+					<th>FILE</th>
+					<th>CONFIG SETTING</th>
+					<th>SCOPE</th>
+					<th>DESCRIPTION</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<td colspan="4">
+						<hr />
+						CS = Client side setting (affects client)<br />
+						SS = Server side setting (affects server)<br />
+						<sup>1</sup>Cedric progress bar is predictive, therefore it is smoother but less accurate than a non-cedric progress bar. If progress bar accuracy is paramount, disable cedric and use the default style progress bar.
+					</td>
+				</tr>
+			</tfoot>
+			<tbody>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>config_file</td>
+					<td>N/A</td>
+					<td>Name of the config file</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>check_file_name_format</td>
+					<td>CS</td>
+					<td>Enable/Disable check format of the file name before uploading</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>allow_extensions</td>
+					<td>CS/SS</td>
+					<td>File extensions that will upload</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>disallow_extensions</td>
+					<td>CS/SS</td>
+					<td>File extensions that will not upload</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>check_allow_extensions_on_client</td>
+					<td>CS</td>
+					<td>Enable/Disable client side allow file extension check</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>check_disallow_extensions_on_client</td>
+					<td>CS</td>
+					<td>Enable/Disable client side disallow file extension check</td>
+				</tr>
+
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>check_null_file_count</td>
+					<td>CS</td>
+					<td>Enable/Disable check for all empty file upload slots before uploading</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>check_duplicate_file_count</td>
+					<td>CS</td>
+					<td>Enable/Disable check for duplicate files before uploading</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>check_file_name_regex</td>
+					<td>CS</td>
+					<td>Regular expression used when checking upload file names</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>check_file_name_error_message</td>
+					<td>CS</td>
+					<td>Error message shown when file name check fails</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>check_allow_extensions_on_server</td>
+					<td>SS</td>
+					<td>Enable/Disable server side allow file extension check</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>check_disallow_extensions_on_server</td>
+					<td>SS</td>
+					<td>Enable/Disable server side disallow file extension check</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>show_percent_complete</td>
+					<td>CS</td>
+					<td>Show/Hide percent complete information</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>show_files_uploaded</td>
+					<td>CS</td>
+					<td>Show/Hide number of files uploaded</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>show_current_position</td>
+					<td>CS</td>
+					<td>Show/Hide current bytes upoaded</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>show_current_file</td>
+					<td>CS</td>
+					<td>Show/Hide current file upload (Only works if <span class="setting">CGI_UPLOAD_HOOK</span> ini setting is enabled)</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>show_elapsed_time</td>
+					<td>CS</td>
+					<td>Show/Hide elapsed time</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>show_est_time_left</td>
+					<td>CS</td>
+					<td>Show/Hide estimated time left to upload finished</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>show_est_speed</td>
+					<td>CS</td>
+					<td>Show/Hide estimated upload speed</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>cedric_progress_bar<sup>1</sup></td>
+					<td>CS</td>
+					<td>Enable/Disable cedric style progress bar</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>cedric_hold_to_sync</td>
+					<td>CS</td>
+					<td>Enable/Disable hold cedric progress bar until resync with uploader</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>bucket_progress_bar</td>
+					<td>CS</td>
+					<td>Enable/Disable bucket style progress bar (<span class="setting">cedric_progress_bar</span> must be disabled)</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>progress_bar_width</td>
+					<td>CS</td>
+					<td>Set the width of the progress bar</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>upload_dir</td>
+					<td>SS</td>
+					<td>Final destination of the uploaded files</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>unique_upload_dir</td>
+					<td>SS</td>
+					<td>Enable/Disable upload to a unique directory inside the upload directory</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>unique_file_name</td>
+					<td>SS</td>
+					<td>Enable/Disable unique file upload name</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>unique_file_name_length</td>
+					<td>SS</td>
+					<td>Number of characters used when creating a 'unique_filename'</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>max_upload_size</td>
+					<td>SS</td>
+					<td>Max upload size in bytes (2 * 1024 * 1024 = 2097152 = 2MB)</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>overwrite_existing_files</td>
+					<td>SS</td>
+					<td>Enable/Disable file clobbering</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>redirect_url</td>
+					<td>CS</td>
+					<td>URL to load after upload is complete</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>normalize_file_names</td>
+					<td>SS</td>
+					<td>Enable/Disable file name normalization</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>normalize_file_name_char</td>
+					<td>SS</td>
+					<td>The character that is used for file normalization</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>normalize_file_name_regex</td>
+					<td>SS</td>
+					<td>Regular search and replace expression used when normalizing file names</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>max_file_name_chars</td>
+					<td>SS/CS</td>
+					<td>Maximum number of characters in file names</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>min_file_name_chars</td>
+					<td>SS/CS</td>
+					<td>Minimum number of charecters in file names</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>strict_file_name_check</td>
+					<td>SS</td>
+					<td>Enable/Disable strict file name check. If this check fails, the file will not be transfered</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>strict_file_name_regex</td>
+					<td>SS</td>
+					<td>Regular expression used in strict file name check</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>link_to_upload</td>
+					<td>SS</td>
+					<td>Enable/Disable link to the uploaded file. Only works if you <span class="setting">upload_dir</span> is web accessible</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>path_to_upload</td>
+					<td>SS</td>
+					<td>Path to the uploaded files. Only takes affect if <span class="setting">link_to_upload=1</span></td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>send_email_on_upload</td>
+					<td>SS</td>
+					<td>Enable/Disable send email after upload</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>html_email_support</td>
+					<td>SS</td>
+					<td>Enable/Disable html email support. Only takes affect if <span class="setting">send_email_on_upload=1</span></td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>link_to_upload_in_email</td>
+					<td>SS</td>
+					<td>Enable/Disable link to the uploaded file. Only works if you <span class="setting">upload_dir</span> is web accessible</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>email_subject</td>
+					<td>SS</td>
+					<td>The subject line that will appear in the email</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>to_email_address</td>
+					<td>SS</td>
+					<td>Email addresses that will receive an email containing upload info</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>from_email_address</td>
+					<td>SS</td>
+					<td>Email address that the email containing upload info is sent from</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>log_uploads</td>
+					<td>SS</td>
+					<td>Enable/Disable file upload logging</td>
+				</tr>
+				<tr>
+					<td>ubr_default_config.php</td>
+					<td>log_dir</td>
+					<td>SS</td>
+					<td>Path to log directory</td>
+				</tr>
+			</tbody>
+		</table>
+		<h2 id="Installation">INSTALLATION</h2>
+		<div class="top"><a href="#top">Top</a></div>
+		<div>
+			The following steps will guide you throught the installation process:
+			<ol>
+				<li>
+					Set the <span class="setting">$TEMP_DIR</span> value in <span class="filename">ubr_upload.pl</span> and <span class="filename">ubr_ini.php</span>. <strong>DO NOT MAKE THIS DIRECTORY PUBLIC!</strong> Examples:
+<pre>
+$TEMP_DIR = '/tmp/ubr_temp/';
+$TEMP_DIR = '/var/tmp/ubr_temp/';
+$TEMP_DIR = '/usr/home/roger/ubr_temp/';
+</pre>
+				</li>
+				<li>
+					Set the <span class="setting">$_CONFIG['upload_dir']</span> value in <span class="filename">ubr_default_config.php</span>. May or may not be public. Examples:
+<pre>
+$_CONFIG['upload_dir'] = '/tmp/ubr_uploads/';
+$_CONFIG['upload_dir'] = '/var/www/html/ubr_uploads/';
+$_CONFIG['upload_dir'] = '/usr/local/www/htdocs/ubr_uploads/';
+$_CONFIG['upload_dir'] = $ENV{'DOCUMENT_ROOT'} . '/ubr_uploads/';
+</pre>
+				</li>
+				<li>
+					Set the correct path values for the scripts in <span class="filename">ubr_ini.php</span>. Examples:
+<pre>
+$_INI['path_to_upload_script']       = '/cgi-bin/ubr_upload.pl';
+$_INI['path_to_link_script']         = 'ubr_link_upload.php';
+$_INI['path_to_set_progress_script'] = 'ubr_set_progress.php';
+$_INI['path_to_get_progress_script'] = 'ubr_get_progress.php';
+$_INI['path_to_js_script']           = 'ubr_file_upload.js';
+$_INI['path_to_jquery']              = 'jquery-1.3.2.min.js';
+$_INI['path_to_block_ui']            = 'jquery.blockUI.js';
+$_INI['path_to_css_file']            = 'ubr.css';
+</pre>
+				</li>
+				<li>
+					Upload <span class="filename">ubr_pload.pl</span> to your <span class="directory">cgi-bin</span> directory. The path will be <span class="directory">/var/www/cgi-bin</span> or <span class="directory">/usr/local/apache/cgi-bin</span>
+				</li>
+				<li>
+					Make <span class="filename">ubr_pload.pl</span> executable with the command <span class="command">chmod 755 ubr_pload.pl</span>
+				</li>
+				<li>
+					Upload <span class="filename">ubr_ini.php</span> to your webspace. The path will be <span class="directory">/var/www/html</span> or <span class="directory">/usr/local/apache/htdocs</span>
+				</li>
+				<li>
+					Upload <span class="filename">ubr_lib.php</span> to your webspace. The path will be <span class="directory">/var/www/html</span> or <span class="directory">/usr/local/apache/htdocs</span>
+				</li>
+				<li>
+					Upload <span class="filename">ubr_finished_lib.php</span> to your webspace. The path will be <span class="directory">/var/www/html</span> or <span class="directory">/usr/local/apache/htdocs</span>
+				</li>
+				<li>
+					Upload <span class="filename">ubr_default_config.php</span> to your webspace. The path will be <span class="directory">/var/www/html</span> or <span class="directory">/usr/local/apache/htdocs</span>
+				</li>
+				<li>
+					Upload <span class="filename">ubr_file_upload.php</span> to your webspace. The path will be <span class="directory">/var/www/html</span> or <span class="directory">/usr/local/apache/htdocs</span>
+				</li>
+				<li>
+					Upload <span class="filename">ubr_file_upload.js</span> to your webspace. The path will be <span class="directory">/var/www/html</span> or <span class="directory">/usr/local/apache/htdocs</span>
+				</li>
+				<li>
+					Upload <span class="filename">jquery-1.3.2.min.js</span> to your webspace. The path will be <span class="directory">/var/www/html</span> or <span class="directory">/usr/local/apache/htdocs</span>
+				</li>
+				<li>
+					Upload <span class="filename">ubr_link_upload.php</span> to your webspace. The path will be <span class="directory">/var/www/html</span> or <span class="directory">/usr/local/apache/htdocs</span>
+				</li>
+				<li>
+					Upload <span class="filename">ubr_set_progress.php</span> to your webspace. The path will be <span class="directory">/var/www/html</span> or <span class="directory">/usr/local/apache/htdocs</span>
+				</li>
+				<li>
+					Upload <span class="filename">ubr_get_progress.php</span> to your webspace. The path will be <span class="directory">/var/www/html</span> or <span class="directory">/usr/local/apache/htdocs</span>
+				</li>
+				<li>
+					Upload <span class="filename">ubr_finished.php</span> to your webspace. The path will be <span class="directory">/var/www/html</span> or <span class="directory">/usr/local/apache/htdocs</span>
+				</li>
+				<li>
+					Upload <span class="filename">ubr.css</span> to your webspace. The path will be <span class="directory">/var/www/html</span> or <span class="directory">/usr/local/apache/htdocs</span>
+				</li>
+				<li>
+					Load <span class="filename">ubr_file_upload.php</span> in your web browser and attempt to do a file upload.
+				</li>
+				<li>
+					If your server is running Apache and you are using a public upload directory, it is recommended that you place a <span class="filename">.htaccess</span> text file in your <span class="directory">/ubr_uploads/</span> directory. In that file put the single line <span class="setting">"Options -Indexes"</span> without the quotes.  This will prevent people from getting at the raw directory listing of your upload directory. Of course, if for some reason you want people to be able to see the raw directory listing, then skip this step. Another way to lock down your upload directory is by simply placing an <span class="filename">index.html</span> file in your <span class="directory">/ubr_uploads/</span> directory.
+				</li>
+			</ol>
+			Your installation may look something like this:
+<pre>
+/var/www/cgi-bin/ubr_pload.pl
+/var/www/html/ubr_ini.php
+/var/www/html/ubr_lib.php
+/var/www/html/ubr_finished_lib.php
+/var/www/html/ubr_default_config.php
+/var/www/html/ubr_file_upload.php
+/var/www/html/ubr_file_upload.js
+/var/www/html/jquery-1.3.2.min.js
+/var/www/html/jquery.blockUI.js
+/var/www/html/ubr.css
+/var/www/html/ubr_link_upload.php
+/var/www/html/ubr_set_progress.php
+/var/www/html/ubr_get_progress.php
+/var/www/html/ubr_finished.php
+</pre>
+			<br />
+			Checklist
+			<ol>
+				<li>Make sure you set the proper (755) permissions for <span class="filename">ubr_pload.pl</span></li>
+				<li>Make sure the path to perl is correct in <span class="filename">ubr_pload.pl</span></li>
+				<li>Make sure you have (777) permissions on the upload and temp directories</li>
+				<li>Make sure all the <span class="setting">PATH_TO</span> values are correct in <span class="filename">ubr_ini.php</span>.</li>
+			</ol>
+			<strong>NOTE:</strong> UU will attempt to make the temp and upload directories but may fail due to permissions. If this occurs, you will have to make these directories manually and set the proper (777) permissions. If your upload directory is public, take this opportunity to lock it down.
+		</div>
+		<h2 id="InstallingMultipleConfigFiles">INSTALLING MULTIPLE CONFIG FILES</h2>
+		<div class="top"><a href="#top">Top</a></div>
+		<div>
+			<ul>
+				<li>
+					Multiple config files must be enabled by changing <span class="setting">$_INI['multi_configs_enabled']</span> ini setting in <span class="filename">ubr_ini.php</span>.<br />
+				</li>
+				<li>
+					The config file must be initialized in the <span class="filename">ubr_file_upload.php</span> AND <span class="filename">ubr_link_upload.php</span> file.<br />
+				</li>
+				<li>
+					As of release 3.0, UU supports multiple config files. This is a useful feature if you have several users who require to upload to several different locations. The file upload page can be coded to load different config files depending on what user loaded the page or what kind of upload the user is submitting. For example, lets say we have one user but they would like to upload images, word documents and spread sheets into different locations. In this case we need 3 more config files and a file upload page that will allow us to select a config file from a drop down and refresh the page selecting that config file. You could also load different config files based on user, you would simply put code at the top of the file upload page and link upload script that would load a config based on user id. eg.
+				</li>
+			</ul>
+		</div>
+<pre>
+if($_INI['multi_configs_enabled']){
+	if($_SESSION['user'] == "tom"){ $config_file = 'ubr_tom_config'; }
+	elseif($_SESSION['user'] == "dick"){ $config_file = 'ubr_dick_config'; }
+	elseif($_SESSION['user'] == "harry"){ $config_file = 'ubr_harry_config'; }
+	elseif($_SESSION['user'] == "sally"){ $config_file = 'ubr_sally_config'; }
+	else{ $config_file = 'ubr_default_config'; }
+}
+</pre>
+		<h2 id="AccessingFileInformation">ACCESSING FILE INFORMATION</h2>
+		<div class="top"><a href="#top">Top</a></div>
+		<div>
+			File information can be accessed inside the finished script <span class="filename">ubr_finished.php</span> using a foreach loop
+		</div>
+<pre>
+foreach($_FILE_DATA as $slot => $value){
+	$file_slot = $_FILE_DATA[$slot]->getFileInfo('slot');
+	$file_name = $_FILE_DATA[$slot]->getFileInfo('name');
+	$file_size = $_FILE_DATA[$slot]->getFileInfo('size');
+	$file_type = $_FILE_DATA[$slot]->getFileInfo('type');
+	$file_status = $_FILE_DATA[$slot]->getFileInfo('status');
+	$file_status_desc = $_FILE_DATA[$slot]->getFileInfo('status_desc');
+}
+</pre>
+
+
+
+
+
+
+		<h2 id="PassingValuesThroughUU">PASSING VALUES THROUGH UU</h2>
+		<div class="top"><a href="#top">Top</a></div>
+		<div>
+			UU supports two simple methods for transferring values through the upload process. Values passed will be available in both the <span class="filename">ubr_upload.pl</span> and <span class="filename">ubr_finished.php</span> scripts.
+		</div>
+		<div>
+			<ol class="bigbottommargin">
+				<li>
+					<strong>Post Values</strong><br />
+					This method is good way to pass values if it is public and/or the end user is entering the values on the file picker page. For example lets say we want the user to enter their favorite color. Simply add the new input to the <span class="setting">uu_upload</span> form in the <span class="filename">ubr_file_upload.php</span> page. eg.
+<pre>
+&lt;input type="text" name="fav_color" value="Enter favorite color"&gt;
+</pre>
+					This value will be available inside the upload script <span class="filename">ubr_upload.pl</span> once the upload is "complete" as
+<pre>
+$query->param("fav_color");
+</pre>
+					This value will be available inside the finished script <span class="filename">ubr_finished.php</span> as
+<pre>
+if(isset($_POST_DATA['fav_color'])){ do something; }
+</pre>
+or in the case of an array as
+<pre>
+if(isset($_POST_DATA['check_box'][0])){ do something; }
+</pre>
+				</li>
+				<li>
+					<strong>Config Values</strong><br />
+					This method is good way to pass values if it is private data like a cookie or session value. For example lets say we want to pass the users password which is being stored in a session. We simply initialize a new config value and assign it the users password. This would be done in the <span class="filename">ubr_link_upload.php</span> script before it creates the link file for the upload. eg.
+<pre>
+$_CONFIG['user_password'] = $_SESSION['user_password'];
+</pre>
+					This value will be available inside the upload script <span class="filename">ubr_upload.pl</span> once the link file is loaded as
+<pre>
+$config{'user_password'};
+</pre>
+					This value will be available inside the finished script <span class="filename">ubr_finished.php</span> as
+<pre>
+$_CONFIG_DATA['user_password'];
+</pre>
+					<strong>NOTE:</strong> You can also override config values in the <span class="filename">ubr_link_upload.php</span> script. eg.
+<pre>
+$_CONFIG['max_upload_size'] = $_SESSION['new_max_upload_size'];
+</pre>
+				</li>
+			</ol>
+		</div>
+		<h2 id="ProgressBarStyles">PROGESS BAR STYLES</h2>
+		<div class="top"><a href="#top">Top</a></div>
+		<div>
+			Uber-Uploader is capable of displaying 4 different progress bar styles.
+			<ol class="bigbottommargin">
+				<li>
+					<strong>Default Progress Bar</strong><br />
+					Default progress bar 'waits' for upload info and 'jumps forward' to the proper values. This is the most accurate progress bar style but it is not very sexy. If accuracy is your main concern or you may be dealing with small uploads, this is probably your best choice.<br />
+					Settings:
+<pre>
+$_CONFIG['cedric_progress_bar'] = 0;
+$_CONFIG['cedric_hold_to_sync'] = 0;
+$_CONFIG['bump_progress_bar'] = 0;
+</pre>
+				</li>
+				<li>
+					<strong>Cedric Progress Bar</strong><br />
+					Cedric progress bar does 'not wait' for upload info and 'moves forward' in a smooth fashion. The rate in which it moves is continually adjusted by the upload info speed and time. It will aouto-correct itself by 'jumping forward or backward' when a reading is recieved. This style of progress bar is good if you are dealing with large uploads on a reliable line.<br />
+					Settings:
+<pre>
+$_CONFIG['cedric_progress_bar'] = 1;
+$_CONFIG['cedric_hold_to_sync'] = 0;
+$_CONFIG['bucket_progress_bar'] = 0;
+</pre>
+				</li>
+				<li>
+					<strong>Cedric Progress Bar With Sync Hold</strong><br />
+					Same as Cedric progress bar but it will 'hold' and sync up with the actual upload info if it races ahead.<br />
+					Settings:
+<pre>
+$_CONFIG['cedric_progress_bar'] = 1;
+$_CONFIG['cedric_hold_to_sync'] = 1;
+$_CONFIG['bucket_progress_bar'] = 0;
+</pre>
+				</li>
+				<li>
+					<strong>Bucket Progress Bar</strong><br />
+					Bucket progress bar 'waits' for upload info and 'moves forward' to the proper values. More accurate than a Cedric progress bar but tends to fall short of 100% progress on small uploads before refresh. This style of progress bar is better for large uploads.<br />
+					Settings:
+<pre>
+$_CONFIG['cedric_progress_bar'] = 0;
+$_CONFIG['cedric_hold_to_sync'] = 0;
+$_CONFIG['bucket_progress_bar'] = 1;
+</pre>
+				</li>
+			</ol>
+		</div>
+		<h2 id="Security">SECURITY</h2>
+		<div class="top"><a href="#top">Top</a></div>
+		<div>
+			If your server is running Apache and you are using a public upload directory, it is recommended that you place a <span class="filename">.htaccess</span> text file in your <span class="directory">/ubr_uploads/</span> directory. In that file put the single line "<span class="setting">Options -Indexes</span>" without the quotes.  This will prevent people from getting at the raw directory listing of your upload directory. You may also prevent a raw file listing by simply putting a blank <span class="filename">index.html</span> file in the <span class="directory">/ubr_uploads/</span> directory.
+		</div>
+		<h2 id="DebuggingTools">DEBUGGING TOOLS</h2>
+		<div class="top"><a href="#top">Top</a></div>
+		<div>
+			<strong>Address Bar Commands</strong>
+<pre>
+www.yoursite.com/cgi-bin/ubr_upload.pl?about
+www.yoursite.com/ubr_file_upload.php?about
+www.yoursite.com/ubr_link_upload.php?about
+www.yoursite.com/ubr_set_progress.php?about
+www.yoursite.com/ubr_get_progress.php?about
+www.yoursite.com/ubr_finished.php?about
+</pre>
+			<br />
+			<strong>Ini Settings</strong>
+			<ul>
+				<li>
+					<span class="setting">$_INI['debug ajax']</span> (uploads possible in this mode)<br />
+					By enabling the <span class="setting">$_INI['debug ajax']</span> ini setting, any call to the <span class="function">showDebugMessage</span> will be displayed in an info box on the file upload page.<br />
+					This method can be used un the <span class="filename">ubr_link_upload.php</span>, <span class="filename">ubr_get_progress.php</span> and <span class="filename">ubr_get_progress.php</span> files.
+				</li>
+				<li>
+					<span class="setting">$_INI['debug_php']</span> (uploads impossible in this mode)<br />
+					Enabling the <span class="setting">$_INI['debug_php']</span> ini setting will dump all your PHP info to screen when you load the file upload page.
+				</li>
+				<li>
+					<span class="setting">$_INI['debug_config']</span> (uploads impossible in this mode)<br />
+					Enabling the <span class="setting">$_INI['debug_config']</span> ini setting will dump the config file to screen when you load the file upload page.
+				</li>
+				<li>
+					<span class="setting">$_INI['debug_upload']</span> (uploads impossible in this mode)<br />
+					Enabling the <span class="setting">$_INI['debug_upload']</span> ini setting will dump all your Perl info to screen when you submit an upload. UPLOADS WILL FAIL IN THIS MODE!!!
+				</li>
+				<li>
+					<span class="setting">$_INI['debug_finished']</span> (uploads possible in this mode)<br />
+					Enabling the <span class="setting">$_INI['debug_finished']</span> ini setting will dump all your XML, CONFIG, FILE and POST values to screen when the upload finished page is loaded.
+				</li>
+				<li>
+					<span class="setting">$_INI['php_error_reporting']</span> (uploads possible in this mode)<br />
+					Turns on PHP <span class="function">error_reporting(E_ALL);</span>.
+				</li>
+				<li>
+					<span class="setting">$_INI['delete_link_file']</span><br />
+					Disable this ini setting if you want to examine the <span class="filename">upload_id.link</span> file inside the temp directory.
+				</li>
+				<li>
+					<span class="setting">$_INI['delete_redirect_file']</span><br />
+					Disable this ini setting if you want to examine the <span class="filename">upload_id.redirect</span> file inside the temp directory.
+				</li>
+				<li>
+					<span class="command">kak</span> statement<br />
+					Use the <span class="command">kak</span> statement inside the Perl or PHP files to print data.
+<pre>
+kak(String, Boolean, __LINE__)
+
+String    =  The string you want to print out
+Boolean   =  Exit or contine script execution
+__LINE__  =  Line number of the print statement
+</pre>
+					eg.
+<pre>
+&amp;kak("This is the value of foo: $foo", 0, __LINE__);
+&amp;kak("This is the value of Bar: $bar", 0, __LINE__);
+$foo_bar_sum = $foo + $bar;
+&amp;kak("This is the sum of foo bar: $foo_bar_sum", 1, __LINE__);
+</pre>
+				</li>
+			</ul>
+		</div>
+		<h2 id="FailedToFindFlengthFile">FAILED TO FIND FLENGTH FILE</h2>
+		<div class="top"><a href="#top">Top</a></div>
+		<div>
+			The first step to solving the flength file issue is to eliminate the obvious.
+			<ol>
+				<li>
+					Make sure the <span class="setting">$TEMP_DIR</span> setting is EXACTLY the same in the <span class="filename">ubr_ini.php</span> and <span class="filename">ubr_upload.pl</span> files.
+				</li>
+				<li>
+					Make sure the <span class="filename">ubr_upload.pl</span> file executes by calling it with the <span class="command">about</span> command from your browser. eg. <span class="command">www.yoursite.com/cgi-bin/ubr_upload.pl?about</span>
+				</li>
+				<li>
+					Max execution time of PHP or Perl scripts are set too low. See 'DEBUGGING TOOLS->INI SETTINGS->DEBUG_PHP and DEBUG_UPLOAD' section.
+				</li>
+			</ol>
+			Assuming the script is set up properly, you are probably dealing with some kind of server side write-caching. Some servers perform write-caching which prevents writing out the flength file or the entire <span class="filename">CGITemp</span> file during the upload. The flength file or the <span class="filename">CGITemp</span> file do not actually hit the disk until the upload is complete, making it worthless for reporting on progress during the upload. So far 3 reasons have been identified along with possible fixes.
+			<ol class="bigbottommargin">
+				<li>
+					<strong>A mod_security module for Apache</strong><br />
+					This may be fixed using a <span class="filename">.htaccess</span> file assuming your host supports them. To fix it just create a file called <span class="filename">.htaccess</span> (that's a period followed by "htaccess") and put the following lines in that file. Upload the file into the directory where the Uber-Uploader CGI ".pl" scripts resides, or in some directory above it (like your server's DOCUMENT_ROOT, i.e. the top-level of your webspace). <span class="filename">.htaccess</span> files must be uploaded as ASCII mode, not BINARY. You may need to <span class="command">CHMOD</span> the <span class="filename">.htaccess</span> file to 644 or (RW-R--R--).
+<pre>
+&lt;IfModule mod_security.c&gt;
+  # Turn off mod_security filtering.
+  SecFilterEngine Off
+
+  # The below probably isn't needed,
+  # but better safe than sorry.
+  SecFilterScanPOST Off
+&lt;/IfModule&gt;
+</pre>
+					If the above method does not work, try putting the following lines into the file
+<pre>
+&lt;IfModule mod_security.c&gt;
+  SetEnvIfNoCase Content-Type \
+  "^multipart/form-data;" "MODSEC_NOPOSTBUFFERING=Do not buffer file uploads"
+&lt;/IfModule&gt;
+
+&lt;IfModule mod_gzip.c&gt;
+  mod_gzip_on No
+&lt;/IfModule&gt;
+</pre>
+				</li>
+				<li>
+					<strong>"Performance Cache" enabled on OS X SERVER</strong><br />
+					If you're running OS X Server and the progress bar isn't working, it could be because of "performance caching." Apparently if ANY of your hosted sites are using performance caching, then by default, all sites (domains) will attempt to. The fix then is to disable the performance cache on all hosted sites.
+				</li>
+				<li>
+					<strong>Lighttpd web server</strong><br />
+					Lighttpd web server is known to buffer posts. To fix add one of the following lines to the <span class="filename">lighttpd.conf</span> file.
+<pre>
+lighttd 1.5.x -> server.network-backend = "writev"
+</pre>
+					or
+<pre>
+1.5.x -> server.network-backend = "linux-sendfile"
+</pre>
+				</li>
+			</ol>
+			<strong>NOTE:</strong> If the above information does not solve your problem, your time is probably best spent finding a Java or Flash based uploader. Any other Perl based uploader will have the same issue.
+		</div>
+		
+		<h2 id="ServerClusters">SERVER CLUSTERS</h2>
+		<div class="top"><a href="#top">Top</a></div>
+		<div>
+			If your site consists of several servers in a cluster, you may find that it occasionally fails to find your redirect or uploaded files. This may be due to the fact that you uploaded a file to server 'A' but were redirected to server 'B' when the upload was finished. When the 'ubr_finished.php' script is fired on server 'B' it looks in server 'B's' temp directory for the 'upload_id.redirect' file which it cannot find because it is on server 'A'. One possible solution is to disable the 'redirect_after_upload' config setting and output all upload results using Perl. Another possible solution is to set a relative 'redirect_url' config setting. eg
+			<br>
+			<br>
+			Instead of defining an absolute <span class="setting">$_CONFIG['redirect_url']</span> setting
+<pre>
+$_CONFIG['redirect_url'] = 'http://www.example.com/ubr_finished.php';
+</pre>
+			We would define a relative <span class="setting">$_CONFIG['redirect_url']</span> setting
+<pre>
+$_CONFIG['redirect_url'] = '/ubr_finished.php';
+</pre>
+
+
+		</div>
+		<h2 id="HowToViewDisabled">HOW TO VIEW AN ACTIVE UPLOAD (CGI_UPLOAD_HOOK DISABLED)</h2>
+		<div class="top"><a href="#top">Top</a></div>
+		<div>
+			The <span class="setting">TEMP_DIR</span> ini setting is assumed to be <span class="setting">$TEMP_DIR = '/tmp/ubr_temp/';</span>
+		</div>
+		<h3>STEPS TO VIEW ACTIVE UPLOAD</h3>
+		<div>
+			<ol>
+				<li>
+					Enable the <span class="setting">$_INI['debug_ajax']</span> ini setting in <span class="filename">ubr_ini.php</span>.
+				</li>
+				<li>
+					Load <span class="filename">ubr_file_upload.php</span> in your web browser.
+				</li>
+				<li>
+					Open a command line (shell) to your web server and go to the <span class="setting">TEMP_DIR</span> directory.
+				</li>
+				<li>
+					Start a large upload.
+				</li>
+				<li>
+					Note the 32 character Upload ID (eg. 325d7d52d78083839d4f9ced94821695) that appears in the AJAX DEBUG WINDOW.
+				</li>
+				<li>
+					While your files are uploading, get a listing of your <span class="setting">TEMP_DIR</span> directory.
+				</li>
+				<li>
+					You should now see a directory in <span class="setting">TEMP_DIR</span> called <span class="directory">325d7d52d78083839d4f9ced94821695.dir</span>.
+				</li>
+				<li>
+					Now get a listing of the <span class="directory">325d7d52d78083839d4f9ced94821695.dir</span> directory.
+				</li>
+				<li>
+					You will see a file called <span class="filename">325d7d52d78083839d4f9ced94821695.flength</span>. This is the file that contains the size of the upload in bytes.
+				</li>
+				<li>
+					You will also see a file like <span class="filename">CGItemp3984</span>. This is a file being uploaded. It will change in size as the file is uploaded.
+				</li>
+				<li>
+					If there is more than one upload, there will be multiple <span class="filename">CGItemp????</span> files.
+				</li>
+			</ol>
+			So with three active file uploads, the file structure will look something like this:
+<pre>
+/tmp/ubr_temp/325d7d52d78083839d4f9ced94821695.dir/325d7d52d78083839d4f9ced94821695.flength
+/tmp/ubr_temp/325d7d52d78083839d4f9ced94821695.dir/CGItemp3984
+/tmp/ubr_temp/325d7d52d78083839d4f9ced94821695.dir/CGItemp3985
+/tmp/ubr_temp/325d7d52d78083839d4f9ced94821695.dir/CGItemp3986
+</pre>
+			<br />
+			<strong>PROGRESS BAR NOTES:</strong>
+			<ul>
+				<li>
+					The first thing the progress bar does is look for the <span class="filename">.flength</span> file in the <span class="directory">/tmp/ubr_temp/325d7d52d78083839d4f9ced94821695.dir/</span> directory. If it cannot find the <span class="filename">.flength</span> file after 10 seconds, it will throw the "failed to find flength file" error and quit.
+				</li>
+				<li>
+					If the <span class="filename">.flength</span> file is found the progress bar will read the total upload size in bytes from the file. The progress bar then keeps reading the size of the <span class="directory">/tmp/ubr_temp/325d7d52d78083839d4f9ced94821695.dir</span> directory as files are uploaded and the directory grows in size. It keeps comparing this number to the one it got from the flength file. That is how the progress bar knows how much information has been uploaded.
+				</li>
+			</ul>
+		</div>
+		<h2 id="HowToViewEnabled">HOW TO VIEW AN ACTIVE UPLOAD (CGI_UPLOAD_HOOK ENABLED)</h2>
+		<div class="top"><a href="#top">Top</a></div>
+		<div>
+			The <span class="setting">TEMP_DIR</span> ini setting is assumed to be <span class="setting">$TEMP_DIR = '/tmp/ubr_temp/';</span>
+		</div>
+		<h3>STEPS TO VIEW ACTIVE UPLOAD</h3>
+		<div>
+			<ol>
+				<li>
+					Enable the <span class="setting">$_INI['debug_ajax']</span> ini setting in <span class="filename">ubr_ini.php</span>.
+				</li>
+				<li>
+					Load <span class="filename">ubr_file_upload.php</span> in your web browser.
+				</li>
+				<li>
+					Open a command line (shell) to your web server and go to the <span class="setting">TEMP_DIR</span> directory.
+				</li>
+				<li>
+					Start a large upload.
+				</li>
+				<li>
+					Note the 32 character Upload ID (eg. 325d7d52d78083839d4f9ced94821695) that appears in the AJAX DEBUG WINDOW.
+				</li>
+				<li>
+					While your files are uploading, get a listing of your <span class="setting">TEMP_DIR</span> directory.
+				</li>
+				<li>
+					You should now see a directory in <span class="setting">TEMP_DIR</span> called <span class="directory">325d7d52d78083839d4f9ced94821695.dir</span>.
+				</li>
+				<li>
+					Now get a listing of the <span class="directory">325d7d52d78083839d4f9ced94821695.dir</span> directory.
+				</li>
+				<li>
+					You will see a file called <span class="filename">325d7d52d78083839d4f9ced94821695.flength</span>. This is the file that contains the size of the upload in bytes.
+				</li>
+				<li>
+					You will also see a file called <span class="filename">325d7d52d78083839d4f9ced94821695.hook</span>. This is the file that contains the the upload info.
+				</li>
+			</ol>
+			The file structure will look something like this.
+<pre>
+/tmp/ubr_temp/325d7d52d78083839d4f9ced94821695.dir/325d7d52d78083839d4f9ced94821695.flength
+/tmp/ubr_temp/325d7d52d78083839d4f9ced94821695.dir/325d7d52d78083839d4f9ced94821695.hook
+</pre>
+			<br />
+			<strong>PROGRESS BAR NOTES:</strong>
+			<ul>
+				<li>
+					The first thing the progress bar does is look for the <span class="filename">.flength</span> file in the <span class="directory">/tmp/ubr_temp/325d7d52d78083839d4f9ced94821695.dir/</span> directory. If it cannot find the flength file after 10 seconds, it will throw the "failed to find flength file" error and quit.
+				</li>
+				<li>
+					The second thing the progress bar does is look for the <span class="filename">.hook</span> file in the <span class="directory">/tmp/ubr_temp/325d7d52d78083839d4f9ced94821695.dir/</span> directory. If it cannot find the hook file after 10 seconds, it will throw the "failed to find hook file" error and quit. The hook file contains the upload information in the following format: <br />
+<pre>
+total_bytes_uploaded:number_of_files_uploaded:current_file_uploading:bytes_uploaded_of_the_current_file
+</pre>
+				</li>
+			</ul>
+		</div>
+		<h2 id="MultiSimultaneousUploads">MULTI SIMULTANEOUS UPLOADS</h2>
+		<div class="top"><a href="#top">Top</a></div>
+		<div>
+			UU is capable of performing multi simultaneous uploads if your web browser is configured properly. UU requires two connections per upload. One connection is required for the upload and one connection is required for the progress bar. By default IE and Firefox ships with the ability to make several simultaneous connections. However, you can increase the the amount of simultaneous connections by changing the following values. Just 'Google' for instructions on changing these values.<br />
+			<ul>
+				<li>IE
+<pre>
+MaxConnectionsPer1_oserver
+MaxConnectionsPerServer
+</pre>
+				</li>
+				<li>Firefox
+<pre>
+network.http.max-connections
+network.http.max-connections-per-server
+network.http.max-persistent-connections-per-server
+</pre>
+				</li>
+			</ul>
+		</div>
+		<h2 id="ForeignLanguageSupport">FOREIGN LANGUAGE SUPPORT</h2>
+		<div class="top"><a href="#top">Top</a></div>
+		<div>
+			As of release 4.5 Uber-Uploader has changed all content-type headers to UTF-8 which will add greater support for non-latin languages. This feature is not 100% so you will need to do some of your own development. Below are some helpful links.
+			<ul>
+				<li>
+					<a href="http://www.phpwact.org/php/i18n/charsets">http://www.phpwact.org/php/i18n/charsets</a>
+				</li>
+				<li>
+					<a href="http://www.nicknettleton.com/zine/php/php-utf-8-cheatsheet">http://www.nicknettleton.com/zine/php/php-utf-8-cheatsheet</a>
+				</li>
+				<li>
+					<a href="http://www.joelonsoftware.com/articles/Unicode.html">http://www.joelonsoftware.com/articles/Unicode.html</a>
+				</li>
+			</ul>
+		</div>
+
+
+		<h2 id="HowToViewYourPHPSettings">HOW TO VIEW YOUR PHP SETTINGS</h2>
+		<div class="top"><a href="#top">Top</a></div>
+		<div>
+		To see your PHP settings, enable the "DEBUG_PHP" ini setting in the "ubr_ini.php" file and load "ubr_file_upload.php" in your browser. This mode will dump all your PHP settings to screen.
+		</div>
+
+		<h2 id="HowToViewYourPerlSettings">HOW TO VIEW YOUR PERL SETTINGS</h2>
+		<div class="top"><a href="#top">Top</a></div>
+		<div>
+		To see your Perl settings, enable the "DEBUG_PERL" value in the "ubr_upload.pl" file and load "ubr_upload.pl" in your browser. This mode will dump all your Perl settings to screen. Alternatively, you enable the <span class="setting">$_INI['debug_upload']</span> ini setting and post an upload. This method will dump all your Perl settings to screen along with the loaded config settings.
+		</div>
+
+
+		<h2 id="ApacheSettingsThatMayAffectUploads">APACHE SETTINGS THAT MAY AFFECT UPLOADS</h2>
+		<div class="top"><a href="#top">Top</a></div>
+		<div>
+<pre>
+LimitRequestBody
+KeepAlive
+KeepAliveTimeout
+MaxClients
+</pre>
+		</div>
+
+		<h2 id="PHPSettingsThatMayAffectUploads">PHP SETTINGS THAT MAY AFFECT UPLOADS</h2>
+		<div class="top"><a href="#top">Top</a></div>
+		<div>
+<pre>
+max_execution_time
+max_input_time
+memory_limit
+</pre>
+
+		</div>
+<br />
+<br />
+		</body>
+</html>
+

@@ -1,0 +1,880 @@
+1.1
+Cosmetic changes.
+
+1.2
+uber_uploader_file.php - Embedded javascript so a separate file upload is not needed.
+
+1.3
+uber_uploader.cgi - Added umask(0) command.
+uber_uploader_progress.php - Renamed the GetBytesRead function argument from $upload_dir to $tmp_dir to prevent confusion.
+uber_uploader_file.php - Added comments to help developers pass extra values to the upload script and the progress bar.
+
+1.4
+uber_uploader.cgi - Changed the default max upload size from 200MB to 2MB.
+uber_uploader.cgi - Added auto flush command.
+uber_uploader.cgi - Added Ignore SIG HUP command.
+uber_uploader_progress.php - The GetBytesRead function now gets the size of the flength file passed to it.
+uber_uploader_progress.php - More comments added to help developers.
+uber_upload_finished.php - Improved the way it processed the upload_temp directory.
+uber_upload_finished.php - More comments added to help developers.
+Added change log document.
+Added how_it_works document.
+
+1.5
+uber_uploader.cgi - Script now checks for the existence of the temp directories based on sid before it starts.
+uber_uploader.cgi - ups_sid var that is appended to the redirect string is now taken from $ENV{'QUERY_STRING'}
+uber_uploader.cgi - Script now deletes the upload dir based on sid if the max file size upload is met.
+uber_uploader_file.php - Disabled the upload button when an upload is initiated.
+uber_uploader_file.php - Removed the Reset button.
+uber_uploader_file.php - Added javascript to look for duplicate file uploads.
+uber_uploader_file.php - Added javascript to look for all blank file upload.
+uber_uploader_file.php - tmp_sid and ups_sid are no longer posted to the upload script or progress script.
+uber_uploader_file.php - tmp_sid no longer passed to the progress script.
+uber_uploader_progress.php - ups_sid is now passed by $GET.
+uber_uploader_progress.php - Rounded the $bRead number before it is sent to the javascript.
+
+1.6
+uber_uploader_progress.php - Changed the GetBytesRead function to read the temp directory through PHP.
+
+1.7
+( "All" command line executes turned off by default in this version. )
+uber_uploader.cgi - All directory deletes now done through perl. Option to use command line deletes by setting $cmd_line_exec_dl = 1;
+uber_uploader.cgi - Max upload size in error message is no longer hard coded.
+uber_uploader_file.php - Added upload range drop down
+uber_uploader_file.php - Added "Clear All Selected Files" button
+uber_uploader_file.php - Fixed "disallow shell scripts and php" regular expression
+uber_uploader_progress.php - All directory deletes now done through PHP. Option to use command line deletes by setting $cmd_line_exec_dl = true;
+uber_uploader_progress.php - All directory reads now done through PHP. Option to use command line reads by setting $cmd_line_exec_du = true;
+uber_uploader_finished.php - All directory deletes now done through PHP. Option to use command line deletes by setting $cmd_line_exec_dl = true;
+
+1.7.1
+uber_uploader.cgi - Added code (must uncomment) to support Webstar V
+uber_uploader_file.php - Added javascript code to extract file extension if needed by developer
+uber_uploader_file.php - Changed all $upload_range variables to $_POST['upload_range']
+
+1.7.5
+uber_uploader.cgi - Fixed an error message
+uber_uploader_file.php - Rewrote all the embedded javascript functions
+
+1.8
+uber_uploader.cgi - Added code to display the upload results
+uber_uploader_finished.php - Deleted - No longer needed
+
+1.8.5
+uber_uploader_finished.tmpl - Added - Lets the user easily modify the upload finished page
+uber_uploader_file.php - Added embedded progress bar feature
+uber_uploader_progress.php - Corrected $cmd_line_exec_du typo
+
+1.8.6
+uber_uploader.cgi - Added an option to create the uploaded files by rename. May result in a significant speed increase when creating the files. Off by default.
+uber_uploader.cgi - Optimized the create file loop
+
+1.9
+uber_uploader.cgi - Move uploaded file by rename enabled by default
+uber_uploader.cgi - Added option to re-direct to a php page after the upload is finished. Off by default.
+uber_uploader_file.php - Only one javascript value (embedded_progress_bar=true) must change to use embedded progress bar.
+uber_uploader_finished.php - Added - Only needed if re-direct is turned on. NOT COMPATIBLE WITH ANY VERSION < 1.9
+Deleted how_it_works document.
+
+1.9.1
+uber_uploader.cgi - Added an option to re-direct using javascript
+uber_uploader.cgi - Fixed typo where $temp_dir_sid was declared twice
+uber_uploader.cgi - Uploaded files are now chmod to 666 rw-rw-rw
+uber_uploader_progress.php - Removed GetBytesRead DU version
+uber_uploader_progress.php - Added an ajax version of the progress bar
+uber_uploader_get_data.php - Get upload data for ajax version of the progress bar
+install.txt - Added more comments
+help.txt - Added help file. Not much in there yet.
+
+1.9.2
+uber_uploader_progress.php - Fixed timing issue where progress bar would report bogus "Upload Failed" message
+uber_uploader_get_data.php - Removed useless variables and code
+uber_uploader_progress.php - (AJAX) Removed useless values and code
+
+1.9.3
+uber_uploader.cgi - Added a regular expression to check for .php or .sh files for added security
+Code clean up and more comments all around
+
+1.9.4
+uber_uploader.cgi - Fixed a bug that was introduced in the 1.9.3 release. This bug passed the entire file path c:\path_to_file ...
+                    to the upload finished page if using IE and $redirect_after_upload. It also failed to pass modified file names if
+                    the user had changed them before transfer.
+
+2.0 - Rewrite
+uber_uploader.cgi - Added debug and version commands
+uber_uploader.cgi - Replaced SIG{__DIE__} with END{}
+uber_uploader.cgi - Replaced redirect using javascript with redirect using html
+uber_uploader.cgi - Re-arranged the code to make installation easier
+uber_uploader_global.php - Added this file to contain methods and values used by all the php pages
+uber_uploader_file.php - Added debug and version commands
+uber_uploader_file.php - Added an onLoad and onUnload method to the body
+uber_uploader_file.php - Disabled all the controls on upload accept the "Reset Page" button
+uber_uploader_file.php - Changed the way the embedded progress bar is hidden and shown
+uber_uploader_progress.php - Added debug and version commands
+uber_uploader_progress.php - Replaced file_exists() with is_file()
+uber_uploader_progress.php - Changed the output message if the flength file cannot be found in 10 seconds
+uber_uploader_progress.php - Moved GetBytesRead() to uber_uploader_global.php
+uber_uploader_progress.php - Moved deleteTempDir() to uber_uploader_global.php
+uber_uploader_progress.php - (AJAX) Replaced date_now.getSeconds() with Math.random()
+uber_uploader_finished.php - Replaced file_exists() with is_file()
+INSTALL.TXT - Rewrote entire file.
+
+2.1
+uber_uploader.cgi - Fixed a bug where a '\n\r' char from a textarea would break the format of the param file when redirecting to a php page
+uber_uploader.cgi - Fixed a bug where a '=' char from a textarea would break the format of the param file when redirecting to a php page
+uber_uploader.cgi - Re-added SIG{__DIE__} due to an issue with IE not cleaning up it's temp files if the user canceled an upload
+uber_uploader_finished.php - Added code to handle '\n\r' and '=' chars in the param file
+uber_uploader_file.php - Added frameborder="0" to the iframe declaration
+
+2.2
+uber_uploader.cgi - Added code to check for zero length files
+uber_uploader_file.php - Replaced rand() with mt_rand() when generating session-id number
+uber_uploader_file.php - Added javascript function "stop_upload(msg)" to stop current upload
+uber_uploader_file.php - Improved javascript function "resetForm()"
+uber_uploader_file.php - Added code to detect Opera Browser and force it into pop-up mode
+uber_uploader_file.php - Changed embedded progress bar to use a dynamic iframe
+uber_uploader_progress.php - Added code to call javascript function "resetForm()" in parent if max upload size is detected
+uber_uploader_progress.php - (AJAX) Added code to call javascript function "resetForm()" in parent if max upload size is detected
+uber_uploader_global.php - Changed "kak" function to call javascript function "resetForm()" in parent if max upload size is detected
+
+2.3
+uber_uploader.cgi - Added option to prevent overwriting of existing uploaded files.
+uber_uploader.cgi - Added option to display fatal errors in browser.
+uber_uploader.cgi - Improved kak sub routine.
+
+2.4
+uber_uploader.cgi - Added option to use file locking when creating flength file (enabled by default)
+uber_uploader.cgi - Changed the path of the temp and upload directories to use DOCUMENT_ROOT
+uber_uploader_global.php - Changed the path of the temp and upload directories to use DOCUMENT_ROOT
+uber_uploader_progress.php - Added 'ob' flush commands which fixes progress bar under Fedoracore 4 with php 5.
+uber_uploader_progress.php + (AJAX) - Added help link if 'FAILED TO FIND FLENGTH FILE' is thrown.
+uber_uploader_file.php - Made the progress pop-up resizable and scrollable.
+help - Added information to help file which fixes the 'FAILED TO FIND FLENGTH FILE' under certain circumstances.
+Changed all pages to use same font set and color.
+
+2.4.1
+uber_uploader.cgi - Removed END{} block because it was not %100 reliable and replaced it with a manual call to deldir() after the file creation loop.
+uber_uploader_file.php - Made the background color of the iframe #EEEEEE
+
+2.5
+uber_uploader.cgi - Added file normalization method. (enabled by default).
+uber_uploader.cgi - Changed file locking when creating flength file to (disabled by default).
+uber_uploader.cgi - Changed rename method so it does not use '[' and ']' characters.
+uber_uploader.cgi - Added .php3, .php4, .shtml, .cgi, and .pl to the extensions that will not be uploaded.
+uber_uploader.cgi - Removed the warning option.
+uber_uploader.cgi - Removed CGI::private_tempfiles(0);
+uber_uploader_finished.tmpl - Added a back button.
+uber_uploader_file.php - Added 'set_time_limit' so PHP will not timeout uploads.
+uber_uploader_file.php - Added .php3, .php4, .shtml, .cgi, and .pl to the extensions that are tagged as illegal file extensions.
+uber_uploader_file.php - Changed the in line progress bar to (enabled by default).
+uber_uploader_progress.php - Ajax version is now default. Dropped support for flush version of the progress bar.
+uber_uploader_get_data.php - Added extra logic so it will fail gracefully if user loads it directly in the browser.
+uber_uploader_global.php - Moved deleteTempDir method to uber_uploader_progress.php.
+uber_uploader_global.php - Moved GetBytesRead method to uber_uploader_get_data.php.
+uber_uploader_finished.php - Added a back button.
+Included files and support to install a bubbly progress bar.
+
+2.6
+uber_uploader.pl - Changed the file extension from '.cgi' to '.pl'
+uber_uploader.pl - Added code to make %ENV safer.
+uber_uploader.pl - Uploaded files no longer mix up their order in the param file.
+uber_uploader.pl - Changed the value of temp_dir to separate it from the uploads directory.
+uber_uploader.pl - Added a sleep(1) when removing the temp directory. Hopefully it will improve the success rate.
+uber_uploader_file.php - Added a JS function "checkFileNameFormat" to check file name format before it is uploaded.
+
+2.6.1
+uber_uploader.pl - Added '-w' perl option.
+uber_uploader.pl - Rewrote deldir sub routine adding a 5 sec loop to delete the temp directory.
+uber_uploader_finished.php - Added a 5 sec loop to delete the param file in 'getPostData' function.
+
+3.0 - Rewrite
+uber_uploader_global.php - Dropped from project
+uber_uploader_progress.php - Dropped from project
+help.txt - Dropped from project. Added the help file contents to the bottom of the install file
+uber_uploader_progress.pl - Added to project
+uber_uploader_progress.tmpl - Added to project
+UberUploader.pm - Added to project
+UberWord.pm - Added to project
+UberSpread.pm - Added to project
+UberImages.pm - Added to project
+uber_uploader_multi_configs.php - Added to project
+uber_uploader_file.php - Added code so the upload will work without javascript enabled.
+uber_uploader_file.php - Values in upload range drop down are now set in an array.
+uber_uploader_file.php - Name of the config file is passed to the upload and progress script.
+uber_uploader_file.php - Removed kak function call that spit out version number.
+uber_uploader.pl - Moved most of the configuration settings into UberUploader.pm
+uber_uploader.pl - Added code to load a configuration file based on query string value sent to script.
+uber_uploader.pl - Changed the way the query string values are parsed.
+UberUploader.pm - Added an option to link to the uploaded file
+UberUploader.pm - Added an option to set the maximum file name length
+uber_uploader_finished.php - Path to upload dir is now passed in the query string.
+uber_uploader_finished.php - Added kak function.
+uber_uploader_get_data.php - Added kak function.
+
+3.1
+uber_uploader.pl - Added <META NAME="ROBOTS" CONTENT="NOINDEX"> to the kak function.
+uber_uploader_progress.pl - Added <META NAME="ROBOTS" CONTENT="NOINDEX"> to the kak function.
+INSTALL_AND_FAQ.TXT - Added more info
+
+3.2
+uber_uploader.pl - Removed the '$errors_to_browser' section of the 'Debug' method which was causing an "uninitialized value" warning in the error log.
+uber_uploader.pl - Wrapped '$upload_filehandle' and '$tmp_filename' in an if statement testing the file name. Failing to do so caused an "uninitialized value" warning in the error log.
+uber_uploader.pl - Initialized the $js_code value to "" in the 'display_results' method if embedded_progress_bar was enabled. Failing to do so caused an "uninitialized value" warning in the error log.
+
+3.3
+uber_uploader.pl - Added __LINE__ parameter to the kak function.
+uber_uploader_progress.pl - Added __LINE__ parameter to the kak function.
+uber_uploader_progress.pl - Changed the way the $get_data_url is formatted.
+uber_uploader_progress.pl - Fixed typo where the path to the default config file was wrong.
+uber_uploader_progress.tmpl - Added JS function "getElapsedTime()" to calculate lapsed time.
+uber_uploader_progress.tmpl - Moved to "templates" sub directory.
+UberUploads.pm - Changed the code that initializes the module.
+UberUploads.pm - Changed the "progress_template" value to point to the templates directory.
+UberUploads.pm - Changed the "finished_template" value to point to the templates directory.
+UberUploads.pm - Moved to "configs" sub directory.
+uber_uploader_get_data.php - Removed code that calculated elapsed time. It is now calculated on the client.
+uber_uploader_file.php - Changed code so it is easy to configure for a single upload slot.
+uber_uploader_file.php - Added $path_to_upload_script value.
+uber_uploader_file.php - Added $path_to_progress_script value.
+uber_uploader_finished.php - Removed check for "upload_dir" passed to script as the user may decide to hard code value.
+
+3.3.1
+uber_uploader.pl - Added "progress_url" to param file if pop-up mode is enabled.
+uber_uploader.pl - Removed "close_pop" value passed in the query string because it is no longer necessary.
+uber_uploader_progress.pl - Fixed typo where the path to the default config file was wrong in the error message.
+uber_uploader_finished.php - Removed hard coded "path to progress bar script" value in the JS call to close pop-up.
+
+3.4
+Added basic support for notification of upload by email.
+
+3.4.1
+Moved the .param file from the upload directory to the temp directory.
+Added "start upload" and "end upload" timestamps to the notification email.
+
+3.5
+uber_uploader.pl - Moved the 'create_files_by_rename' setting to the config file.
+uber_uploader.pl - Removed the 'flock_flength_file' setting.
+uber_uploader.pl - Changed the 'use config' to 'require config' so it is compatible with older versions of perl.
+uber_uploader.pl - Fixed the detection of multiple disks or mounts.
+uber_uploader.pl - Changed the way a pop-up progress bar is closed.
+uber_uploader.pl - Changed the way the upload file handle is created so it is compatible with older versions of perl.
+uber_uploader_progress.pl - Changed the 'use config' to 'require config' so it is compatible with older versions of perl.
+UberUploads.pm - Changed it to a simple perl script instead of a perl module.
+UberUploads.pm - Added 'create_files_by_rename' setting.
+UberUploads.pm - Removed 'progress_url' setting as it is no longer needed.
+uber_uploader_file.php - Added dynamic upload slots feature.
+uber_uploader_finished.php - Changed the way a pop-up progress bar is closed.
+uber_uploader_finished.php - Added support for posted arrays.
+
+3.5.1
+uber_uploader.pl - Moved the disallow extensions list to the config file.
+uber_uploader_progress.pl - Added the 'get_data_speed' value to the search and replace of the progress template.
+UberUploads.pm - Added 'get_data_speed' setting.
+UberUploads.pm - Added 'disallow_extentsions' setting.
+uber_uploader_finished.php - Changed the way the post data values and keys are verified.
+
+3.5.2
+uber_uploader.pl - Optimized template rendering code.
+uber_uploader.pl - Added code to generate unique upload directory.
+uber_uploader.pl - Added function 'generate_random_string()' to generate random string.
+uber_uploader_progress.pl - Optimized template rendering code.
+uber_uploader_progress.pl - Modified get string to read 'total_uploads' as the third parameter.
+uber_uploader_progress.pl - Moved the 'embedded_progress_bar' setting in the get string to the fourth parameter.
+uber_uploader_progress.pl - Added 'total_uploads' to the search and replace of the progress template.
+UberUploads.pm - Added 'allow_extentsions' setting.
+UberUploads.pm - Added 'unique_upload_dir' setting.
+uber_uploader_progress.tmpl - Added html to display files uploaded.
+uber_uploader_file.php - Added function 'countUploads()' to count user file uploads.
+uber_uploader_file.php - Added 'total_uploads' to the progress bar get string.
+uber_uploader_file.php - Added 'max_upload_slots' setting.
+uber_uploader_get_data.php - Added code to the 'GetBytesRead()' function to read file uploads.
+uber_uploader_get_data.php - Added 'uploaded_files' to the AJAX output.
+extra.zip - Removed because it was a pain to update it for every revision. Will eventually add to the 'DOCUMENTS' section of sourceforge.
+
+3.5.3
+uber_uploader.pl - Moved 'debug_cgi' into the config file.
+uber_uploader.pl - Added and moved around code to accommodate new config settings.
+UberUploads.pm - Added 'debug_cgi' setting.
+UberUploads.pm - Added 'redirect_using_js' setting.
+UberUploads.pm - Added 'delete_param_file' setting.
+UberUploads.pm - Added 'link_to_upload_in_email' setting.
+uber_uploader_file.php - Replaced js function 'checkFileextentsions' with 'checkDisallowFileextentsions'.
+uber_uploader_file.php - Replaced js value 'check_file_extensions' with 'check_disallow_extensions'.
+uber_uploader_file.php - Added js function 'checkAllowFileextentsions'.
+uber_uploader_file.php - Added js value 'check_allow_extentsions'.
+uber_uploader_finished.php - Added and moved around code to accommodate new config settings.
+INSTALL_AND_FAQ.TXT - Expanded 'Debug' section.
+INSTALL_AND_FAQ.TXT - Added 'How it works' section.
+
+3.6
+UberUploads.pm - Added 'cedric_progress_bar' setting.
+uber_uploader.pl - Added 'cedric_progress_bar' config setting to debug message.
+uber_uploader.pl - Added 'format=flowed' to html email.
+uber_uploader_progress.pl - Added 'cedric_progress_bar' config setting to the search and replace.
+uber_uploader_progress.tmpl - Added code, values and functions to support 'cedric_progress_bar'.
+uber_uploader_progress.tmpl - Changed css to use 'px' for the progress bar instead of '%'.
+uber_uploader_get_data.php - Added code to support 'cedric_progress_bar'.
+uber_uploader_get_data.php - Changed output of 'upload_status' to use 'px' instead of '%'.
+uber_uploader_get_data.php - Added '$progress_bar_width' value.
+uber_uploader_finished.php - Added 'format=flowed' to html email.
+uber_uploader_file.php - Added code and values to enable/disable multi config files.
+
+4.0 - Rewrite
+Better support for Opera Browser
+Templates system has been made obsolete
+Rendering the progress bar in an iframe has been made obsolete
+Removed pop-up progress bar option
+Script names shortened from 'uber_uploader_...' to 'uu_...'
+Default config value 'temp_dir' changed to '/tmp/'
+Script command 'version' changed to 'about'
+
+4.1
+uu_upload.pl - Fixed the regular expression that tested for file extentsions
+uu_conlib.php - Added 'disallow_extentsions' and 'allow_extentsions' config settings
+uu_file_upload.js - Removed regular expressions that tested for file extentsions
+uu_file_upload.php -  Added 'disallow_extentsions' and 'allow_extentsions' javascript values
+
+4.2
+uu_upload.pl - Added code to generate unique file names
+uu_upload.pl - Changed back button code to use top.location instead of history.go(-1)
+uu_upload.pl - Changed all occurrences of 'extention' to 'extension'
+uu_default_config.pm - Added 'unique_upload_dir_length' setting
+uu_default_config.pm - Added 'unique_file_name' setting
+uu_default_config.pm - Added 'unique_file_name_length' setting
+uu_default_config.pm - Changed all occurrences of 'extention' to 'extension'
+uu_conlib.php - Changed all occurrences of 'extention' to 'extension'
+uu_conlib.php - Removed 'about' command
+uu_file_upload.php - Changed all occurrences of 'extention' to 'extension'
+uu_file_upload.php - Added 'about' command
+uu_file_upload.php - Fixed 'Reset' bug where pressing 'Reset' would freeze the progress bar on the next upload
+uu_finished.php - Fixed 'about' command
+uu_get_status.php - Removed old javascript calls
+uu_get_status.php - Changed update of Cedric values 'info_width' and 'info_bytes' by function 'updateCedricStatus'
+uu_file_upload.js - Added 'updateCedricStatus' function
+uu_file_upload.js - Added 'iniFilePage' function
+uu_file_upload.js - Added 'cedric_hold' value
+uu_file_upload.js - Changed the code in the 'resetForm' function (Reset Bug)
+
+4.3
+uu_lib.pl - Added a new sub-routine 'parse_query_string' to process the query string
+uu_lib.pl - Added the value 'uu_version'
+uu_upload.pl - Changed code to use the new sub-routine 'parse_query_string'
+uu_upload.pl - Removed the unix time-stamp in emails
+uu_upload.pl - Added missing </body> tag to the 'redirect_using_js_html' redirect
+uu_ini_status.pl - Changed code to use the new sub-routine 'parse_query_string'
+uu_ini_status.pl - Removed unnecessary values used for error messages
+uu_default_config.pm - Increased the 'unique_file_name_length' config setting to 16
+uu_default_config.pm - Changed the 'normalize_file_delimiter' config setting from '-' to '_'
+uu_file_upload.js - Added a new function 'hideProgressBar'
+uu_conlib.php - Changed value '$multi_config_files' to '$MULTI_CONFIGS_ENABLED'
+uu_finished.php - Fixed a typo that was breaking links to uploaded files in email
+uu_finished.php - Removed the unix time-stamp in emails
+
+4.4
+uu_upload.pl - Added code to handle new 'embedded file upload results' feature
+uu_conlib.php - Added new '$embedded_upload_results' setting
+uu_file_upload.php - Added code to handle new 'embedded file upload results' feature
+uu_file_upload.js - Added new function "resetProgressBar()"
+uu_file_upload.js - Found and fixed the real cause of the 'Reset'.
+uu_finished.php - Added code to handle new 'embedded file upload results' feature
+
+4.5
+Changed all content-type headers to UTF-8.
+
+4.5.1
+Fixed a bug introduced in the 4.5 release where all the script files were saved in Unicode instead of ASCII.
+
+4.5.2
+uu_upload.pl - Added regular expression to check the SID format
+uu_upload.pl - Added regular expression to check the config file format
+uu_upload.pl - Improved query string processing code
+uu_upload.pl - Improved the embedded upload results coding
+uu_upload.pl - Simplified mail function
+uu_ini_status.pl - Added regular expression to check the SID format
+uu_ini_status.pl - Improved query string processing code
+uu_ini_status.pl - Added regular expression to check the config file format
+uu_file_upload.php - Improved the embedded upload results coding
+uu_file_upload.js - Added a line to check if embedded upload results iframe exists in document
+uu_finished.php - Removed extra "content-type" param
+uu_finished.php - Simplified mail function
+
+4.6
+uu_lib.pm - Changed to perl module
+uu_lib.pm - Value "print_issued" is now stored locally
+uu_lib.pm - Added regex on the file name in the 'deldir' sub
+uu_default_config.pm - Changed to perl module
+uu_default_config.pm - Moved from 'configs' sub directory to main 'cgi-bin' directory
+uu_default_config.pm - Fixed 'disallow_extensions' bug
+uu_default_config.pm - Fixed 'allow_extensions' bug
+uu_upload.pl - Added 'strict' setting
+uu_upload.pl - Added current directory to list of valid paths
+uu_upload.pl - Added taint checking for all values passed
+uu_upload.pl - Added 'main::' to all config settings
+uu_upload.pl - Re-wrote the upload file processing loop
+uu_upload.pl - Added unique upload directory name to email if 'unique_upload_dir' config setting is enabled
+uu_upload.pl - Added unique upload directory to param file if 'unique_upload_dir' config setting is enabled
+uu_upload.pl - Added regular expression to strip file name spaces in 'normalize_filename' sub
+uu_ini_status.pl - Added 'strict' setting
+uu_ini_status.pl - Added current directory to list of valid paths
+uu_ini_status.pl - Added taint checking for all values passed
+uu_ini_status.pl - Added 'main::' to all config settings
+uu_ini_status.pl - Replaced 'temp_dir' with 'temp_dir_sid' in the xml output
+uu_conlib.php - Fixed 'disallow_extensions' bug
+uu_conlib.php - Fixed 'allow_extensions' bug
+uu_file_upload.php - Removed 'tmp_sid' javascript value
+uu_file_upload.php - Removed 'upload_range' form value
+uu_file_upload.js - 'temp_dir_sid' value is passed from 'uu_ini_status.pl' instead of created by appending 'tmp_dir' to 'tmp_sid'
+uu_finished.php - Added unique upload directory name to email if 'unique_upload_dir' config setting is enabled
+
+4.6.1
+uu_file_upload.js - Added 'handleKey' function
+uu_file_upload.js - Added more commented code to the 'updateCedricStatus' function
+uu_file_upload.php - Added 'handleKey' function to file inputs
+uu_get_status.php - Added check for 'get_data_loop' js value and 'hideProgressBar' js function
+uu_finished.php - Added validation to "all" posted params
+
+4.7
+uu_conlib.php - Removed 'GetBytesRead' function
+uu_file_upload.php - Moved all javascript code into the <head> tag
+uu_get_status.php - Added and updated 'GetBytesRead' function
+uu_get_status.php - Removed the code that calculates and sets upload status values
+uu_file_upload.js - Added 'setProgressStatus' function which calculates and sets upload status values
+uu_file_upload.js - Removed 'updateCedricStatus' function
+uu_file_upload.js - Minor clean up and optimization of code
+
+4.7.1
+uu_default_config.pm - Removed 'cedric_progress_bar' config setting
+uu_upload.pl - Fixed typo in comments concerning 'allow_extensions and disallow_extensions'
+uu_ini_status.pl - Removed 'cedric_progress_bar' config setting from xml output
+uu_conlib.php - Added 'cedric_progress_bar' config setting
+uu_file_upload.php - Added 'cedric_progress_bar' js value
+uu_file_upload.php - Cleaned up code concerning 'allow_extensions and disallow_extensions' js values
+uu_file_upload.js - Removed 'cedric_progress_bar' js value
+uu_file_upload.js - Removed 'cedric_progress_bar' code from xml input
+uu_file_upload.js - Added 'total_Kbytes' js value
+uu_file_upload.js - Fixed bug where the 'smoothCedricBytes' function was comparing kilobytes to bytes
+
+4.8
+uu_upload.pl - Fixed bug related to the 'unique_upload_dir' in combination with 'link_to_upload' config setting
+uu_upload.pl - Added FILE::COPY module to transfer uploaded file to final destination
+uu_upload.pl - Removed code that detected whether the temp and upload directories were on the same disk
+uu_upload.pl - Changed file transfer code to use FILE::COPY
+uu_default_config.pm - Removed 'create_files_by_rename' config setting. All file transfers are now handled by FILE::COPY
+uu_get_status.php - Rewrite.
+.htaccess - Added
+
+4.8.5
+uu_upload.pl - All global values passed as function arguments
+uu_upload.pl - Simplified upload file info storage
+uu_upload.pl - Added file content type detection
+uu_upload.pl - Removed 'display_results_through_cgi' function
+uu_upload.pl - Removed 'confirm_upload' function
+uu_upload.pl - Added 'get_file_size' function
+uu_upload.pl - Added '<br>' tags to email in html format
+uu_upload.pl - File size and type now written to .param file
+uu_default_config.pm - Increased default 'normalize_file_length' config setting to 48
+uu_default_config.pm - Increased default 'max_upload' config setting to 5242880 (5MB)
+uu_file_upload.js - Increased file length max to 48 characters
+uu_conlib.php - Replace '<?' with '<?php'
+uu_get_status.php - Replace '<?' with '<?php'
+uu_file_upload.php - Replace '<?' with '<?php'
+uu_finished.php - Replace '<?' with '<?php'
+uu_finished.php - Simplified file processing loop
+uu_finished.php - File size and type now read from .param file
+uu_finished.php - Added '<br>' tags to email in html format
+uu_finished.php - Removed 'to' field in email header
+
+5.0
+uu_upload.pl - Changed all instances of tmp_sid to temp_sid
+uu_upload.pl - Changed regular expression that checks for valid sid
+uu_upload.pl - Changed regular expression that checks for valid config file
+uu_upload.pl - Added 'log_upload' function
+uu_default_config.pm - Added 'log_uploads' config setting
+uu_default_config.pm - Added 'log_params' config setting
+uu_default_config.pm - Added 'log_dir' config setting
+uu_ini_status.pl - Changed all instances of tmp_sid to temp_sid
+uu_ini_status.pl - Changed regular expression that checks for valid sid
+uu_ini_status.pl - Changed regular expression that checks for valid config file
+uu_ini_status.pl - Changed XML to output temp_sid and temp_dir in separate tags
+uu_conlib.php - Added 'generateTempSID' function
+uu_file_upload.php - Changed all instances of tmp_sid to temp_sid
+uu_file_upload.php - Changed generation of temp_sid by calling 'generateTempSID' function
+uu_get_status.php - Added regular expression to check for valid temp_sid
+uu_get_status.php - Changed all instances of tmp_sid to temp_sid
+uu_get_status.php - Changed input to accept temp_sid and temp_dir in separate values
+uu_file_upload.js - Changed all instances of tmp_sid to temp_sid
+uu_file_upload.js - Changed XML input temp_sid and temp_dir to be sent as separate values
+uu_finished.php - Rewrite
+uu_finished_lib.php - Added file
+
+5.0.1
+uu_upload.pl - Added 'log_uploads' config settings to debug output
+uu_upload.pl - Added perl version to debug output
+uu_upload.pl - Added cgi.pm version to debug output
+uu_upload.pl - Added file::copy version to debug output
+
+5.0.2
+uu_upload.pl - Fixed bug where debug was printing 'temp_dir' setting in the 'log_dir' setting
+uu_upload.pl - Added 8 character random string to log file name
+uu_upload.pl - Changed 'generate_random_string' function to only use lowercase letters
+
+5.1
+uu_upload.pl - Added close statement when upload size is exceeded
+uu_upload.pl - Passed 'MULTI_CONFIGS_ENABLED' setting to debug as function argument
+uu_conlib.php - Added 'show_percent_complete' config setting
+uu_conlib.php - Added 'show_files_uploaded' config setting
+uu_conlib.php - Added 'show_current_position' config setting
+uu_conlib.php - Added 'show_elapsed_time' config setting
+uu_conlib.php - Added 'show_est_time_left' config setting
+uu_conlib.php - Added 'show_est_speed' config setting
+uu_file_upload.php - Changed code to accept new 'uu_conlib.php' config settings
+uu_file_upload.js - Changed code to accept new 'uu_conlib.php' config settings
+
+5.2
+uu_upload.pl - Changed the format of the xml logs
+uu_upload.pl - Changed output of param file to xml
+uu_default_config.pm - Removed 'delete_param_file' config setting
+uu_finished.php - Rewrite - added support for xml param file
+uu_finished_lib.php - Rewrite - added support for xml param file
+
+5.3
+uu_default_config.pm - Added 'param_dir' config setting
+uu_default_config.pm - Added 'pass_param_dir' config setting
+uu_upload.pl - Added code to support new 'param_dir' config setting
+uu_upload.pl - Added code to support new 'pass_param_dir' config setting
+uu_ini_status.pl - Updated error messages
+uu_ini_status.pl - Added '<stop_upload>' tag to XML output
+uu_get_status.php - Added extra code to detect read errors
+uu_finished_lib.php - Took out deprecated pass by reference
+uu_file_upload.js - Added function to output message
+
+5.3.5
+uu_upload.pl - Removed 'cedric_progress_bar' setting from debug message
+uu_file_upload.js - Explicitly set values to null in frequently called functions
+uu_finished_lib.php - Set XML parser to auto detect
+
+5.3.6
+uu_upload.pl - Fixed bug where post data was not written to log files where 'log_params' wan enabled
+uu_finished.php - Fixed bug where the $_CONFIG_DATA was checked for 'embedded_upload_results' instead of $_POST_DATA
+
+6.0 - Rewrite
+File mask changed from 'uu' to 'ubr'. All script versions set to 1.
+
+6.1
+ubr_upload.pl - Added 'purge_ubr_dirs' function to delete old upload_id.dir directories
+ubr_ini.php - Added 'PURGE_TEMP_DIRS' ini setting
+ubr_ini.php - Added 'PURGE_TEMP_DIRS_LIMIT' ini setting
+ubr_link_upload.php - Added support for new ini settings
+ubr_get_status.php - Removed call to 'stopDataLoop' on invalid parameters
+
+6.2
+ubr_upload.pl - Fixed bug where debug info would not show if 'embedded_upload_results' config setting was enabled
+ubr_upload.pl - Added comment related to 'disallowed extentions' config setting
+ubr_lib.php - Added '$debug_upload' argument to 'startUpload' function
+ubr_lib.php - Added 'getProgressStatus' function
+ubr_ini.php - Replaced '$PATH_TO_INI_SCRIPT' ini setting with '$PATH_TO_SET_PROGRESS_SCRIPT'
+ubr_ini.php - Replaced '$PATH_TO_STAUS_SCRIPT' ini setting with '$PATH_TO_GET_PROGRESS_SCRIPT'
+ubr_ini.php - Added '$GET_PROGRESS_SPEED' ini setting
+ubr_link_upload.php - Fixed bug where 'DELETE_LINK_FILE' ini setting was not passed correctly
+ubr_link_upload.php - Fixed bug where 'path_to_upload' config setting was not getting passed in all cases
+ubr_link_upload.php - Added 'disallowed extentions' config setting to link file
+ubr_link_upload.php - Added '$DEBUG_UPLOAD' config setting to 'startUpload' function call
+ubr_ini_progress.php - Replaced by ubr_set_progress.php
+ubr_get_status.php - Replaced by ubr_get_progress.php
+ubr_default_config.php - Added 'disallowed extentions' config setting
+ubr_default_config.php - Removed 'get_status_speed' config setting
+ubr_finished.php - Removed call to 'getFileDataEmail' function
+ubr_finished_lib.php - Added call to 'getFileDataEmail' inside 'emailUploadResults' function
+ubr_file_upload.php - Replaced 'path_to_ini_script' with 'path_to_set_progress_script'
+ubr_file_upload.php - Replaced 'path_to_staus_script' with path_to_get_progress_script
+ubr_file_upload.php - Simplified <div> that wraps iframe
+ubr_file_upload.js - Fixed bug where the upload form was not properly referenced by DOM
+ubr_file_upload.js - Fixed bug where progress bar was still initialized if uploader was in debug mode
+ubr_file_upload.js - Removed 'setTimeout' call in the 'getProgressStatus' function
+
+6.3
+ubr_upload.pl - Added kak statement to output on fail to create log file
+ubr_upload.pl - Fixed bug where the '$print_issued' value was not initialized if the first kak statement was executed
+ubr_upload.pl - Changed main file processing loop to accept allow and or disallow file extension checks without a manual edit
+ubr_upload.pl - Added 'check_file_extension' function to check file extensions
+ubr_upload.pl - Added allow and or disallow extension settings to debug output
+ubr_upload.pl - Changed 'normalize_filename' function to support file names with spaces
+ubr_link_upload.php - Added allow and or disallow extension settings output to link file
+ubr_link_upload.php - Added support for '$PHP_ERROR_REPORTING' ini setting
+ubr_link_upload.php - Added extra '$DEBUG_AJAX' statement to display successful link file creation
+ubr_set_progress.php - Added extra '$DEBUG_AJAX' statement to display successful flength file read
+ubr_set_progress.php - Added support for '$PHP_ERROR_REPORTING' ini setting
+ubr_get_progress.php - Added extra '$DEBUG_AJAX' statement to display upload information
+ubr_get_progress.php - Added support for '$PHP_ERROR_REPORTING' ini setting
+ubr_file_upload.php - Added support for allow and or disallow extension settings
+ubr_file_upload.php - Added support for '$PHP_ERROR_REPORTING' ini setting
+ubr_finished.php - Added comment to show thumbnail file creation
+ubr_finished.php - Added the 'ubr_image_lib.php' require in comments
+ubr_finished.php - Added support for '$PHP_ERROR_REPORTING' ini setting
+ubr_file_upload.js - Added 'checkDisallowFileExtensions' function
+ubr_file_upload.js - Changed 'checkFileNameFormat' function to support file names with spaces
+ubr_file_upload.js - Added call to 'checkDisallowFileExtensions' function in 'linkUpload' function
+ubr_ini.php - Added extra comments
+ubr_ini.php - Changed '$GET_PROGRESS_SPEED' default value from 500 to 1000
+ubr_ini.php - Added '$PHP_ERROR_REPORTING' ini setting to toggle PHP error_reporting(E_ALL)
+ubr_default_config.php - Added 'check_allow_extensions_on_client' config setting
+ubr_default_config.php - Added 'check_disallow_extensions_on_client' config setting
+ubr_default_config.php - Added 'check_allow_extensions_on_server' config setting
+ubr_default_config.php - Added 'check_disallow_extensions_on_server' config setting
+ubr_default_config.php - Removed 'check_allow_extensions' config setting. Replaced by 'check_allow_extensions_on_client' config setting
+ubr_image_lib.php - Added library that contains basic functions for creating thumbnails and sharpening images
+
+6.3.1
+ubr_upload.pl - Enabled 'fatalsToBrowser' by default
+ubr_upload.pl - Changed all fatal kak statement to die
+ubr_upload.pl - Added END block
+ubr_upload.pl - Added 'remove_temp_dir' value to track temp dir cleanup
+ubr_upload.pl - Removed $SIG{'_DIE_'} handler
+ubr_upload.pl - Removed 'make_dir' function
+ubr_upload.pl - Removed 'delete_dir' function
+ubr_upload.pl - Removed 'cleanup' function
+ubr_set_progress.php - Moved 'PHP_ERROR_REPORTING' statement below ini initialization
+ubr_ini.php - Changed 'PHP_ERROR_REPORTING' ini setting default value to enabled
+ubr_ini.php - Changed 'PURGE_TEMP_DIRS_LIMIT' ini setting default value to 43200 (43200=12 hrs)
+ubr_file_upload.php - Changed 'data' css style width to use 'px' instead of '%'
+upload_finished_lib.php - Changed file data table to use 'px' instead of '%'
+ubr_image_lib.php - Rounded numbers returned from the '' function 'getScale'
+
+6.3.2
+ubr_get_progress.php - Removed dead 'embedded_upload_results' values
+ubr_file_upload.php - Added support for 'cedric_hold_to_sync' config setting
+ubr_default_config.php - Added 'cedric_hold_to_sync' config setting
+ubr_file_upload.js - Added support for 'cedric_hold_to_sync' config setting
+
+6.3.3
+ubr_get_progress.php - Fixed bug where 'about' command threw an error
+ubr_set_progress.php - Fixed bug where 'about' command threw an error
+ubr_finished.php - Fixed bug where 'about' command threw an error
+ubr_file_upload.php - Added <div id='ajax_div'> at bottom of page to store AJAX calls
+ubr_file_upload.js - Changed 'getProgressStatus', 'initializeProgressBar' and 'linkUpload' functions to append AJAX data to <div id='ajax_div'> instead of body
+
+6.3.4
+ubr_upload.pl - Made changes to the 'write_uu_file' function to support checkbox arrays
+ubr_upload.pl - Fixed bug where 'redirect_using_js' config setting would use 'top.location' instead of 'document.location'
+ubr_finished.php - Fixed bug where a combination of 'embedded_upload_results' config and 'DEBUG_FINISHED' ini settings failed to open the 'upload_iframe' iframe
+ubr_finished_lib.php - Fixed bug where a combination of 'unique_upload_dir' and 'link_to_upload_in_email' failed to print unique directory
+ubr_finished_lib.php - Re-wrote the 'getpostData' function to support checkbox arrays
+ubr_finished_lib.php - Added $_POST_DATA array to the 'getFileDataEmail' and 'getFileDataTable' functions for user convenience
+ubr_finished_lib.php - Added 'scriptParent' function
+
+6.3.5
+ubr_upload.pl - Added code to send a signal through the flength file to stop the post if the link file is not found
+ubr_link_upload.php - Added extra AJAX debug statements to track errors
+ubr_link_upload.php - Removed code that looked for the link file name in the query string if ini setting 'MULTI_CONFIGS_ENABLED'
+ubr_set_progress.php - Added code to process 'link file is not found' error in the flenght file
+ubr_get_progress.php - Added extra info to the AJAX debug statements to track errors
+ubr_file_upload.php - Removed code that passed the link file name in the query string if ini setting 'MULTI_CONFIGS_ENABLED'
+ubr_file_upload.js - Removed code that passed the link file name in the query string if ini setting 'MULTI_CONFIGS_ENABLED'
+
+6.3.6
+ubr_link_upload.php - Writing the config settings to the link file now uses a foreach loop instead of writing each setting individually
+
+6.3.7
+ubr_upload.pl - Made the 'show_debug_info' function more efficient by writing all the config settings in a foreach loop
+ubr_link_upload.php - Added 'all' link file values to the  $_CONFIG array
+ubr_link_upload.php - Changed the 'write_link_file' function argument to a single value
+ubr_file_upload.js - Added code to the 'setProgressStatus' function that fixes a bug when user is using FF3 browser with 'cedric_progress_bar' config setting enabled
+
+6.3.8
+ubr_upload.pl - Changed all fatal 'kak' statements to 'die'
+ubr_get_progress.php - Fixed bug where flength file was included in file uploads
+ubr_file_upload.php - Added 'z-index' to progress bar CSS
+ubr_file_upload.js - Moved the disable upload button from 'startUpload' to 'linkUpload'
+
+6.4
+ubr_upload.pl - Added 'hook' function
+ubr_upload.pl - Added support for new 'CGI_UPLOAD_HOOK' ini setting
+ubr_upload.pl - Re-added 'TEMP_DIR' and 'UPLOAD_ID' values to the 'show_debug_info' output
+ubr_link_upload.php - Added CSS support
+ubr_link_upload.php - Added the new 'CGI_UPLOAD_HOOK' ini setting to the link file
+ubr_set_progress.php - Added CSS support
+ubr_set_progress.php - Added support for new 'CGI_UPLOAD_HOOK' ini setting
+ubr_get_progress.php - Re-written to support new 'CGI_UPLOAD_HOOK' ini setting and CSS functionality
+ubr_file_upload.php - Removed most of the embedded CSS
+ubr_file_upload.php - Added support for new 'PATH_TO_CSS_FILE' ini setting
+ubr_file_upload.php - Added support for new 'bucket_progress_bar' config setting
+ubr_file_upload.php - Added support for new 'show_current_file' config setting
+ubr_file_upload.php - Changed the name of the upload form from 'form_upload' to 'uu_upload'
+ubr_file_upload.php - Changed the name of the upload info elements to match their config counterparts
+ubr_finished.php - Added CSS support
+ubr_finished_lib.php - Changed 'parseFeed' function to read file using new 'readUberFile' function
+ubr_finished_lib.php - Added CSS support
+ubr_ini.php - Added '$PATH_TO_CSS_FILE' ini setting
+ubr_ini.php - Added '$CGI_UPLOAD_HOOK' ini setting
+ubr_lib.php - Added 'readUberFile' function
+ubr_lib.php - Changed 'setProgressStatus' function to support extra arguements
+ubr_lib.php - Changed 'kak' function to accept CSS
+ubr_default_config.php - Added 'bucket_progress_bar' config setting
+ubr_default_config.php - Added 'show_current_file' config setting
+ubr_default_config.php - Changed 'cedric_progress_bar' default setting to 0
+ubr_default_config.php - Changed 'cedric_hold_to_sync' default setting to 1
+ubr_file_upload.js - Added 'incrementProgressBar()' function
+ubr_file_upload.js - Changed 'setProgressStatus' function to support new 'CGI_UPLOAD_HOOK' ini setting
+ubr_file_upload.js - Changed variable names to be more meaningful
+ubr.css - Added
+
+6.4.1
+ubr_upload.pl - Changed the delimiter in the 'hook' function from : to ::
+ubr_upload.pl - Stripped path info from $current_filename value in the 'hook' function
+ubr_get_progress.php - Changed delimiter if 'CGI_UPLOAD_HOOK' ini setting is enabled
+ubr_get_progress.php - Added 'addslashes' PHP function to $current_filename value
+
+6.4.2
+ubr_upload.pl - Added 'trim' function
+ubr_upload.pl - Sorted the config values before they are written to redirect or log file
+ubr_upload.pl - Removed 'write_uu_file' function arguements 'start_upload' and 'end_upload'
+ubr_upload.pl - Added 'start_upload' and 'end_upload' to the 'config' values
+ubr_upload.pl - Added 'remote_addr' and 'http_user_agent' to the 'config' values
+ubr_upload.pl - Removed 'remote_ip' and 'user_agent' values from the redirect and log files
+ubr_finished_lib.php - Added extra value validation in the 'getFileData' function
+
+6.4.3
+Updated licence information ia all file
+Updated all 'about' commands, dropping the '=1' requirement
+ubr_upload.pl - Change all file io to use the FileHandle module
+ubr_upload.pl - Flength and Hook file are now deleted as soon as the upload finishes
+ubr_upload.pl - Added error control in the case of upload_hook and minimum CGI.pm version
+ubr_ini.php - Increase the values 'PURGE_LINK_LIMIT' and 'PURGE_REDIRECT_LIMIT' to 300 seconds
+ubr_lib.php - Re-wrote 'readUberFile' function
+ubr_link_upload.php - Re-wrote 'write_link_file' function
+ubr_set_progress.php - Change file io to use the 'readUberFile' function
+ubr_set_progress.php - Added 'minimum CGI.pm version' error message
+ubr_get_progress.php - Removed detection of the temp directory as a loop condition
+ubr_finished_lib.php - Added new 'createThumbFile','getScale' and 'getFileExtension' functions
+ubr.css - Added 'ubrUploadSlot' class
+ubr_file_upload.js - Added 'ubrUploadSlot' class to upload slot in the 'addUploadSlot' function
+ubr_image_lib.php - Removed
+
+6.5
+ubr_upload.pl - Added output if no redirect method is set
+ubr_upload.pl - Added 'DEBUG_PERL' value that will dump all environment variables to screen if enabled
+ubr_upload.pl - Added 'DATA_DELIMITER' value that defines the character set used to seperate values in various UU files
+ubr_upload.pl - Changed the 'load_config_file' function to make several attempts to find the link file
+ubr_upload.pl - Changed the javascript redirect to use 'parent' if embedded upload results is enabled
+ubr_ini.php - Added 'DATA_DELIMITER' value that defines the character set used to seperate values in various UU files
+ubr_link_upload.php - Changed 'write_link_file' function to use 'DATA_DELIMITER' ini setting
+ubr_set_progress.php - Change flength file parse to use 'DATA_DELIMITER' ini setting
+ubr_get_progress.php - Change flength file and hook file parse to use 'DATA_DELIMITER' ini setting
+ubr_finished_lib.php - Changed 'getFileData' function to store data indexed by slot
+ubr_finished_lib.php - Changed 'getFileDataTable' function to access file data indexed by slot
+ubr_finished_lib.php - Changed 'getFileDataEmail' function to access file data indexed by slot
+ubr_finished_lib.php - Fixed a bug in the 'emailUploadResults' function where the remote ip and user agent were not sent
+
+6.6
+ubr_upload.pl - Added 'strict_file_name_check' function
+ubr_upload.pl - Added 'normalize_file_regex' check to 'normalize_filename' function
+ubr_upload.pl - Added 'min_file_name_chars' check to 'normalize_filename' function
+ubr_upload.pl - Added 'max_file_name_chars' check to 'normalize_filename' function
+ubr_upload.pl - Added 'strict_file_name' check to main file processing loop
+ubr_upload.pl - Added file transfer 'status' to main file processing loop
+ubr_upload.pl - Added file transfer 'status' to 'write_uu_file' function
+ubr_default_config.php - Added 'check_file_name_regex' config setting
+ubr_default_config.php - Added 'check_file_name_error_message' config setting
+ubr_default_config.php - Added 'normalize_file_regex' config setting
+ubr_default_config.php - Added 'max_file_name_chars' config setting
+ubr_default_config.php - Added 'min_file_name_chars' config setting
+ubr_default_config.php - Added 'strict_file_name_check' config setting
+ubr_default_config.php - Added 'strict_file_name_regex' config setting
+ubr_default_config.php - Removed 'normalize_file_length' config setting
+ubr_default_config.php - Removed 'multi_upload_slots' config setting
+ubr_file_upload.php - Added support for new 'check_file_name_regex' config setting
+ubr_file_upload.php - Added support for new 'check_file_name_error_message' config setting
+ubr_file_upload.php - Added support for new 'max_file_name_chars' config setting
+ubr_file_upload.php - Added support for new 'min_file_name_chars' config setting
+ubr_set_progress.php - Changed initialization of start_time to use time()
+ubr_get_progress.php - Changed initialization of lapsed_time to use time()
+ubr_file_upload.js - Complete re-write to support JQuery
+ubr_file_upload.js - Changed 'checkFileNameFormat' function to support new 'check_file_name_regex' config setting
+ubr_file_upload.js - Changed 'checkFileNameFormat' function to support new 'check_file_name_error_message' config setting
+ubr_file_upload.js - Changed 'checkFileNameFormat' function to support new 'max_file_name_chars' config setting
+ubr_file_upload.js - Changed 'checkFileNameFormat' function to support new 'max_file_name_chars' config setting
+ubr_finished_lib.php - Added 'status' member value to 'FileInfo' class
+ubr_finished_lib.php - Changed 'getFileData' function to set file 'status' value
+
+6.7
+ubr_default_config.php - Replaced 'normalize_file_delimiter' config setting with 'normalize_file_name_char'
+ubr_default_config.php - Replaced 'normalize_file_regex' config setting with 'normalize_file_name_char'
+ubr_default_config.php - Removed 'redirect_using_location' setting
+ubr_default_config.php - Removed 'redirect_using_html' setting
+ubr_default_config.php - Removed 'redirect_using_js' setting
+ubr_default_config.php - Removed 'opera_browser' setting
+ubr_default_config.php - Removed 'safari_browser' setting
+ubr_default_config.php - Removed 'embedded_upload_results' setting
+ubr_upload.pl - Added the new 'normalize_file_regex' and 'normalize_file_name_char' config settings
+ubr_upload.pl - Switched all die statements to kak
+ubr_upload.pl - Added new redirect code
+ubr_upload.pl - Fixed bug where IO::File version number was not displayed in debug mode
+ubr_ini.php - Changed most ini settings to use an array
+ubr_ini.php - Replaced 'timeout_limit' ini setting with 'flength_timeout_limit'
+ubr_ini.php - Added 'hook_timeout_limit' ini setting
+ubr_ini.php - Added 'embedded_upload_results' ini setting
+ubr_ini.php - Added 'redirect_method' ini setting
+ubr_file_upload.php - Rewrite
+ubr_file_upload.js - Rewrite
+ubr.css - Rewrite
+ubr_set_progress.php - Added the new 'flength_timeout_limit' and 'hook_timeout_limit' ini settings
+ubr_set_progress.php - Removed the 'deleteTempUploadDir' function
+ubr_link_upload.php - Removed the 'create_dir','purge_ubr_files' and 'write_link_file' functions
+ubr_lib.php - Added 'createDir', 'purgeFiles', 'writeLinkFile' and 'deleteDir' functions
+ubr_finished.php - Added code to break frameset
+ubr_finished.php - Added support for new CSS
+ubr_finished_lib.php - Added extra data checks to the 'getConfigData' 'getpostData' and 'getFileData' functions
+ubr_finished_lib.php - Fixed bug where 'emailUploadResults' function where email header was not sending Content-Type
+ubr_finished_lib.php - Replaced 'getFileDataTable' function with 'getFormattedUploadResults' function
+ubr_finished_lib.php - Added extra checks to 'getFileData' function
+
+6.7.1
+ubr_upload.pl - Replaced the 'rename_filename' function with 'rename_file' function due to an obscure bug which caused it to enter an infinate loop
+ubr_upload.pl - Improved main file processing loop
+ubr_file_upload.js - Improved the 'getFileExtension' function 
+ubr_finished.php - Changed comments to reflect recent changes to code
+ubr_finished_lib.php - Fixed bug introduced in version 6.7 where the 'getpostData' function added single post values to an array
+INSTALL_AND_FAQ.TXT - Removed
+INSTALL_AND_FAQ.HTML - Added
+
+6.7.2
+ubr_file_upload.js - Added 'highlightFileLabel' function
+ubr_file_upload.js - Added 'clearFileLabels' function
+ubr_file_upload.js - Re-wrote 'checkDuplicateFileCount' function
+
+6.7.3
+ubr_upload.pl - Changed file status to a true/false value
+ubr_upload.pl - Added file status description
+ubr_upload.pl - Lowered font size of about message
+ubr_upload.pl - Removed javascript global values
+ubr_finished_lib.php - Removed 'getFileExtension' function
+ubr_finished_lib.php - Fixed bug in 'getFormattedUploadResults' function where link to file was broken
+ubr_finished_lib.php - Added support for file description
+ubr_lib.php - Added 'getFileExtension' function
+ubr_file_upload.php - Removed javascript global values
+ubr_lib.php - Removed javascript global values
+ubr_finished.php - Removed javascript global values
+ubr_file_upload.js - Removed global values
+
+6.7.4
+ubr_link_upload.php - Fixed bug where old .redirect and .link files where not being purged from the system
+
+6.7.5
+ubr_file_upload.js - Used upload id for iframe name instead of timestamp
+ubr_finished.php - Added extra comments and cleaned up code
+ubr_finished_lib.php - Fixed bug where blank post data was not being parsed
+
+6.8
+ubr_upload.pl - Rewrote redirect code
+ubr_ini.php - Removed 'redirect_method' setting
+ubr_ini.php - Added 'block_ui_enabled' setting
+ubr_ini.php - Added 'path_to_block_ui' setting
+ubr_ini.php - Added 'redirect_after_upload' setting
+ubr_file_upload.php - Added 'block_ui_enabled' value
+ubr_file_upload.php - Added jquery.blockUI.js if 'block_ui_enabled' is enabled
+ubr_link_upload.php - Removed 'redirect_method' setting being written to the link file
+ubr_finished.php - Removed code to break out of iframe
+ubr_finished.php - Removed code that told the parent to show the hidden iframe
+ubr_file_upload.js - Added 'redirectAfterUpload' function
+ubr_file_upload.js - Added 'showAlert' function
+ubr_file_upload.js - Added 'block_ui_enabled' value

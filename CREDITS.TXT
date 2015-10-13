@@ -1,0 +1,26 @@
+I would like to thank the following people and resources who helped create and improve Uber-Uploader 
+by providing code, ideas, inspiration, bug fixes and valuable feedback. If you feel you should be included
+in this list, please post a message in the forum of the Uber-Uploader project page requesting a contributor credit.
+
+
+Contributor: Aleksey Kuznetsov        http://www.appcontrols.com
+Contributor: Art Bogdanov             http://www.sibsoft.net
+Contributor: Bill                     http://www.rebootconcepts.com
+Contributor: Cedric                   http://www.fsharp.fr
+Contributor: David Bennett
+Contributor: Detlev Richter
+Contributor: Erik Guilfoyle
+Contributor: Feyyaz Oezdemir
+Contributor: Gabor Szabo
+Contributor: Jeroen Soeters
+Contributor: Kim Steinhaug
+Contributor: Klaus Karcher
+Contributor: Nico Hawley-Weld
+Contributor: Raditha Dissanyake       http://www.raditha.com
+Contributor: Ramón Bultó
+Contributor: Tolriq
+Contributor: Tore B. Krudtaa
+Contributor: Yusuke Kamiyamane        http://www.pinvoke.com
+Contributor: http://icant.co.uk/articles/phpthumbnails/
+Contributor: http://www.php.net/manual/en/function.print-r.php
+Contributor: http://www.php.net/manual/en/function.xml-parse.php
